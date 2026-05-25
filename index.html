@@ -486,6 +486,116 @@
   }
   .seg:hover .seg-repeat { opacity: 0.6; }
   .seg-repeat:hover { opacity: 1 !important; color: var(--accent); }
+
+  /* === Click-to-lookup popup === */
+  .word-clickable {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .word-clickable:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .word-clickable.looked-up {
+    color: #60a5fa;
+    text-decoration-color: rgba(96,165,250,0.3);
+  }
+
+  #wordPopup {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    background: #1e1e2e;
+    border: 1px solid rgba(118,185,0,0.4);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 280px;
+    max-width: 380px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    font-size: 14px;
+    animation: popIn 0.15s ease-out;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  #wordPopup.show { display: block; }
+  #wordPopup .popup-close {
+    position: absolute;
+    top: 8px; right: 12px;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #wordPopup .popup-close:hover { color: #fff; }
+  #wordPopup .popup-word {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+  #wordPopup .popup-phonetic {
+    font-size: 14px;
+    color: var(--accent);
+    margin-left: 8px;
+    font-weight: 400;
+  }
+  #wordPopup .popup-speak {
+    background: none; border: none;
+    color: var(--accent);
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  #wordPopup .popup-speak:hover { color: #8ad400; }
+  #wordPopup .popup-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 0;
+  }
+  #wordPopup .popup-meaning {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--highlight);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  #wordPopup .popup-en-def {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 6px;
+  }
+  #wordPopup .popup-en-def .def-pos {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  #wordPopup .popup-loading {
+    color: var(--text-dim);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #wordPopup .popup-loading .mini-spinner {
+    width: 14px; height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+  #wordPopup .popup-source {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+  #wordPopup .popup-source.is-vocab {
+    color: var(--highlight);
+  }
 </style>
 </head>
 <body>
@@ -561,6 +671,20 @@
 
 <button class="vocab-toggle" id="vocabToggle">📚</button>
 
+<!-- Word lookup popup -->
+<div id="wordPopup">
+  <button class="popup-close" id="popupClose">✕</button>
+  <div>
+    <span class="popup-word" id="popupWord"></span>
+    <span class="popup-phonetic" id="popupPhonetic"></span>
+    <button class="popup-speak" id="popupSpeak" title="Pronounce">🔊</button>
+  </div>
+  <div class="popup-divider"></div>
+  <div class="popup-meaning" id="popupMeaning"></div>
+  <div class="popup-en-def" id="popupEnDef"></div>
+  <div class="popup-source" id="popupSource"></div>
+</div>
+
 <audio id="audio" preload="auto">
   <source src="Jensen-Huangs-Speech-At-Caltech-2024-Commencement.mp3" type="audio/mpeg">
 </audio>
@@ -602,17 +726,202 @@ function escapeHtml(t) {
 
 function highlightVocab(text) {
   let result = escapeHtml(text);
-  // Sort by length desc to match longer words first
-  const words = Object.keys(VOCAB).sort((a,b) => b.length - a.length);
-  for (const word of words) {
-    const info = VOCAB[word];
-    const regex = new RegExp(`\\b(${word})\\b`, 'gi');
-    result = result.replace(regex, (match) => {
-      return `<span class="vocab-word">${match}<span class="vocab-tip"><span class="tip-word">${word}</span><span class="tip-phonetic">${info.phonetic || ''}</span><div class="tip-meaning">${info.meaning}</div></span></span>`;
-    });
-  }
+  // Split into words and non-words, wrap each word in a clickable span
+  result = result.replace(/([a-zA-Z'-]+)/g, (match) => {
+    const lower = match.toLowerCase().replace(/^['-]+|['-]+$/g, '');
+    const isVocab = VOCAB[lower];
+    if (isVocab) {
+      return `<span class="vocab-word word-clickable" data-word="${lower}">${match}</span>`;
+    }
+    return `<span class="word-clickable" data-word="${lower}">${match}</span>`;
+  });
   return result;
 }
+
+// === Word Lookup Cache ===
+const lookupCache = {};
+
+// === Show word popup ===
+const wordPopup = document.getElementById('wordPopup');
+const popupWord = document.getElementById('popupWord');
+const popupPhonetic = document.getElementById('popupPhonetic');
+const popupMeaning = document.getElementById('popupMeaning');
+const popupEnDef = document.getElementById('popupEnDef');
+const popupSource = document.getElementById('popupSource');
+const popupSpeak = document.getElementById('popupSpeak');
+const popupClose = document.getElementById('popupClose');
+
+function positionPopup(targetEl) {
+  const rect = targetEl.getBoundingClientRect();
+  const pw = 320;
+  let left = rect.left + rect.width / 2 - pw / 2;
+  let top = rect.bottom + 8;
+
+  // Keep within viewport
+  if (left < 8) left = 8;
+  if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+  if (top + 200 > window.innerHeight) top = rect.top - 8 - 200;
+  if (top < 8) top = 8;
+
+  wordPopup.style.left = left + 'px';
+  wordPopup.style.top = top + 'px';
+}
+
+function showPopup(word, targetEl) {
+  const lower = word.toLowerCase().replace(/^['-]+|['-]+$/g, '');
+  if (!lower || lower.length < 2) return;
+
+  popupWord.textContent = lower;
+  popupPhonetic.textContent = '';
+  popupMeaning.textContent = '';
+  popupEnDef.innerHTML = '';
+  popupSource.textContent = '';
+
+  positionPopup(targetEl);
+  wordPopup.classList.add('show');
+
+  // Check VOCAB first
+  if (VOCAB[lower]) {
+    const info = VOCAB[lower];
+    popupPhonetic.textContent = info.phonetic || '';
+    popupMeaning.textContent = info.meaning;
+    popupSource.textContent = '📖 课文重点词汇';
+    popupSource.className = 'popup-source is-vocab';
+    fetchEnglishDef(lower, true);
+    return;
+  }
+
+  // Check cache
+  if (lookupCache[lower]) {
+    renderLookupResult(lookupCache[lower]);
+    return;
+  }
+
+  // Show loading
+  popupMeaning.innerHTML = '<div class="popup-loading"><div class="mini-spinner"></div>正在查询...</div>';
+  popupSource.textContent = '';
+
+  // Fetch from Free Dictionary API + translation
+  fetchWordInfo(lower);
+}
+
+async function fetchEnglishDef(word, isVocab) {
+  try {
+    const resp = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!resp.ok) return;
+    const data = await resp.json();
+    if (!data[0]) return;
+
+    // If vocab word didn't have phonetic, fill from API
+    if (isVocab && !popupPhonetic.textContent && data[0].phonetic) {
+      popupPhonetic.textContent = data[0].phonetic;
+    }
+
+    // Add English definitions
+    const meanings = data[0].meanings || [];
+    let defHtml = '';
+    for (const m of meanings.slice(0, 3)) {
+      const pos = m.partOfSpeech;
+      const defs = m.definitions.slice(0, 2);
+      for (const d of defs) {
+        defHtml += `<div><span class="def-pos">${pos}</span>${escapeHtml(d.definition)}</div>`;
+      }
+    }
+    if (defHtml) popupEnDef.innerHTML = defHtml;
+  } catch (e) { /* ignore */ }
+}
+
+async function fetchWordInfo(word) {
+  const result = { word, phonetic: '', meaning: '', enDefs: [] };
+
+  // Parallel: dictionary API + translation API
+  const [dictResult, transResult] = await Promise.allSettled([
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`).then(r => r.ok ? r.json() : null),
+    fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|zh`).then(r => r.ok ? r.json() : null)
+  ]);
+
+  // Parse dictionary
+  if (dictResult.status === 'fulfilled' && dictResult.value && dictResult.value[0]) {
+    const entry = dictResult.value[0];
+    result.phonetic = entry.phonetic || '';
+    if (!result.phonetic && entry.phonetics) {
+      const p = entry.phonetics.find(ph => ph.text);
+      if (p) result.phonetic = p.text;
+    }
+    const meanings = entry.meanings || [];
+    for (const m of meanings.slice(0, 3)) {
+      const pos = m.partOfSpeech;
+      for (const d of m.definitions.slice(0, 2)) {
+        result.enDefs.push({ pos, def: d.definition });
+      }
+    }
+  }
+
+  // Parse translation
+  if (transResult.status === 'fulfilled' && transResult.value) {
+    const trans = transResult.value;
+    if (trans.responseStatus === 200 && trans.responseData && trans.responseData.translatedText) {
+      const t = trans.responseData.translatedText;
+      // Only use if it actually looks like Chinese
+      if (/[\u4e00-\u9fff]/.test(t)) {
+        result.meaning = t;
+      }
+    }
+  }
+
+  lookupCache[word] = result;
+  renderLookupResult(result);
+}
+
+function renderLookupResult(result) {
+  popupPhonetic.textContent = result.phonetic || '';
+  popupMeaning.textContent = result.meaning || '';
+  popupSource.textContent = result.meaning ? '🌐 在线翻译' : '';
+  popupSource.className = 'popup-source';
+
+  let defHtml = '';
+  for (const d of (result.enDefs || [])) {
+    defHtml += `<div><span class="def-pos">${d.pos}</span>${escapeHtml(d.def)}</div>`;
+  }
+  popupEnDef.innerHTML = defHtml;
+
+  if (!result.meaning && !defHtml) {
+    popupMeaning.textContent = '暂无释义';
+  }
+}
+
+// === TTS pronunciation ===
+popupSpeak.addEventListener('click', () => {
+  const word = popupWord.textContent;
+  if (!word) return;
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang = 'en-US';
+  utt.rate = 0.85;
+  speechSynthesis.speak(utt);
+});
+
+// === Close popup ===
+popupClose.addEventListener('click', () => {
+  wordPopup.classList.remove('show');
+});
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#wordPopup') && !e.target.classList.contains('word-clickable')) {
+    wordPopup.classList.remove('show');
+  }
+});
+
+// === Delegate click on words in subtitle panel ===
+subtitlePanel.addEventListener('click', (e) => {
+  const wordEl = e.target.closest('.word-clickable');
+  if (wordEl) {
+    e.stopPropagation();
+    const word = wordEl.dataset.word;
+    if (word) {
+      wordEl.classList.add('looked-up');
+      showPopup(word, wordEl);
+    }
+  }
+});
 
 // === Build subtitle DOM ===
 function buildSubtitles() {
@@ -631,7 +940,7 @@ function buildSubtitles() {
         toggleLoop(i);
         return;
       }
-      if (e.target.closest('.vocab-word')) return;
+      if (e.target.closest('.word-clickable')) return;
       audio.currentTime = seg.start;
       if (audio.paused) audio.play();
     });
