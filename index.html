@@ -244,6 +244,86 @@
     margin-top: 3px;
     font-family: 'Noto Sans SC', sans-serif;
   }
+  .vocab-item .vi-delete {
+    float: right;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    padding: 0 2px;
+  }
+  .vocab-item:hover .vi-delete { opacity: 0.7; }
+  .vocab-item .vi-delete:hover { opacity: 1; color: #f87171; }
+
+  /* Vocab tabs */
+  .vocab-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .vocab-tab {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .vocab-tab:hover { color: var(--text-secondary); }
+  .vocab-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .vocab-tab .tab-badge {
+    font-size: 11px;
+    background: rgba(255,255,255,0.08);
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 4px;
+  }
+  .vocab-tab.active .tab-badge {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  /* Notebook actions bar */
+  .notebook-actions {
+    display: none;
+    padding: 8px 12px;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .notebook-actions.show { display: flex; }
+  .nb-action-btn {
+    flex: 1;
+    padding: 6px 0;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nb-action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .nb-action-btn.danger:hover {
+    border-color: #f87171;
+    color: #f87171;
+  }
 
   /* === Player Bar === */
   .player-bar {
@@ -596,6 +676,30 @@
   #wordPopup .popup-source.is-vocab {
     color: var(--highlight);
   }
+  #wordPopup .popup-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: none;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  #wordPopup .popup-add-btn:hover {
+    background: var(--accent);
+    color: #000;
+  }
+  #wordPopup .popup-add-btn.added {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -632,10 +736,20 @@
       <div class="vocab-header">
         📚 Vocabulary <span class="badge" id="vocabBadge">0</span>
       </div>
+      <div class="vocab-tabs">
+        <button class="vocab-tab active" data-tab="course" id="tabCourse">📖 课文词汇 <span class="tab-badge" id="courseCount">0</span></button>
+        <button class="vocab-tab" data-tab="notebook" id="tabNotebook">⭐ 我的单词本 <span class="tab-badge" id="notebookCount">0</span></button>
+      </div>
       <div class="vocab-search">
         <input type="text" id="vocabSearchInput" placeholder="Search words...">
       </div>
+      <div class="notebook-actions" id="notebookActions">
+        <button class="nb-action-btn" id="nbExport">📤 导出</button>
+        <button class="nb-action-btn" id="nbImport">📥 导入</button>
+        <button class="nb-action-btn danger" id="nbClear">🗑 清空</button>
+      </div>
       <div class="vocab-list" id="vocabList"></div>
+      <input type="file" id="nbImportFile" accept=".json" style="display:none">
     </div>
   </div>
 
@@ -683,6 +797,7 @@
   <div class="popup-meaning" id="popupMeaning"></div>
   <div class="popup-en-def" id="popupEnDef"></div>
   <div class="popup-source" id="popupSource"></div>
+  <button class="popup-add-btn" id="popupAddBtn">⭐ 加入单词本</button>
 </div>
 
 <audio id="audio" preload="auto">
@@ -779,6 +894,15 @@ function showPopup(word, targetEl) {
 
   positionPopup(targetEl);
   wordPopup.classList.add('show');
+
+  // Reset add button
+  if (isInNotebook(lower)) {
+    popupAddBtn.textContent = '✅ 已加入';
+    popupAddBtn.classList.add('added');
+  } else {
+    popupAddBtn.textContent = '⭐ 加入单词本';
+    popupAddBtn.classList.remove('added');
+  }
 
   // Check VOCAB first
   if (VOCAB[lower]) {
@@ -968,35 +1092,176 @@ function toggleLoop(i) {
   }
 }
 
+// === Notebook (localStorage) ===
+const NB_KEY = 'english_learning_notebook';
+function loadNotebook() {
+  try { return JSON.parse(localStorage.getItem(NB_KEY)) || {}; } catch { return {}; }
+}
+function saveNotebook(nb) {
+  localStorage.setItem(NB_KEY, JSON.stringify(nb));
+  updateNotebookCount();
+}
+function addToNotebook(word, phonetic, meaning) {
+  const nb = loadNotebook();
+  if (!nb[word]) {
+    nb[word] = { phonetic: phonetic || '', meaning: meaning || '', addedAt: Date.now() };
+    saveNotebook(nb);
+  }
+}
+function removeFromNotebook(word) {
+  const nb = loadNotebook();
+  delete nb[word];
+  saveNotebook(nb);
+}
+function isInNotebook(word) {
+  return !!loadNotebook()[word];
+}
+function updateNotebookCount() {
+  const count = Object.keys(loadNotebook()).length;
+  document.getElementById('notebookCount').textContent = count;
+}
+
+// === Tab state ===
+let currentTab = 'course'; // 'course' or 'notebook'
+
 // === Build vocab sidebar ===
 function buildVocabList(filter = '') {
   vocabList.innerHTML = '';
-  const entries = Object.entries(VOCAB)
-    .filter(([w, info]) => !filter || w.includes(filter.toLowerCase()) || info.meaning.includes(filter))
-    .sort((a, b) => a[0].localeCompare(b[0]));
+  const notebookActions = document.getElementById('notebookActions');
 
-  document.getElementById('vocabBadge').textContent = entries.length;
-  document.getElementById('vocabCount').textContent = entries.length;
+  if (currentTab === 'course') {
+    notebookActions.classList.remove('show');
+    const entries = Object.entries(VOCAB)
+      .filter(([w, info]) => !filter || w.includes(filter.toLowerCase()) || info.meaning.includes(filter))
+      .sort((a, b) => a[0].localeCompare(b[0]));
 
-  entries.forEach(([word, info]) => {
-    const div = document.createElement('div');
-    div.className = 'vocab-item';
-    div.innerHTML = `
-      <div><span class="vi-word">${word}</span><span class="vi-phonetic">${info.phonetic || ''}</span></div>
-      <div class="vi-meaning">${info.meaning}</div>
-    `;
-    div.addEventListener('click', () => {
-      // Find first segment containing this word
-      const idx = SEGMENTS.findIndex(s => new RegExp('\\b' + word + '\\b', 'i').test(s.text));
-      if (idx >= 0) {
-        audio.currentTime = SEGMENTS[idx].start;
-        if (audio.paused) audio.play();
-        scrollToSeg(idx);
-      }
+    document.getElementById('vocabBadge').textContent = entries.length;
+    document.getElementById('courseCount').textContent = entries.length;
+    document.getElementById('vocabCount').textContent = entries.length;
+
+    entries.forEach(([word, info]) => {
+      const div = document.createElement('div');
+      div.className = 'vocab-item';
+      const inNb = isInNotebook(word);
+      div.innerHTML = `
+        <div><span class="vi-word">${word}</span><span class="vi-phonetic">${info.phonetic || ''}</span></div>
+        <div class="vi-meaning">${info.meaning}</div>
+      `;
+      div.addEventListener('click', () => {
+        const idx = SEGMENTS.findIndex(s => new RegExp('\\b' + word + '\\b', 'i').test(s.text));
+        if (idx >= 0) {
+          audio.currentTime = SEGMENTS[idx].start;
+          if (audio.paused) audio.play();
+          scrollToSeg(idx);
+        }
+      });
+      vocabList.appendChild(div);
     });
-    vocabList.appendChild(div);
-  });
+  } else {
+    // Notebook tab
+    notebookActions.classList.add('show');
+    const nb = loadNotebook();
+    const entries = Object.entries(nb)
+      .filter(([w, info]) => !filter || w.includes(filter.toLowerCase()) || info.meaning.includes(filter))
+      .sort((a, b) => a[0].localeCompare(b[0]));
+
+    document.getElementById('vocabBadge').textContent = entries.length;
+
+    if (entries.length === 0) {
+      vocabList.innerHTML = '<div style="padding:24px 16px;text-align:center;color:var(--text-dim);font-size:13px;">📝 单词本为空<br><br>点击字幕中的单词，然后按「⭐ 加入单词本」<br>即可收藏到这里</div>';
+      return;
+    }
+
+    entries.forEach(([word, info]) => {
+      const div = document.createElement('div');
+      div.className = 'vocab-item';
+      div.innerHTML = `
+        <button class="vi-delete" title="移除">✕</button>
+        <div><span class="vi-word">${word}</span><span class="vi-phonetic">${info.phonetic || ''}</span></div>
+        <div class="vi-meaning">${info.meaning}</div>
+      `;
+      div.querySelector('.vi-delete').addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeFromNotebook(word);
+        buildVocabList(vocabSearchInput.value);
+      });
+      div.addEventListener('click', (e) => {
+        if (e.target.closest('.vi-delete')) return;
+        const idx = SEGMENTS.findIndex(s => new RegExp('\\b' + word + '\\b', 'i').test(s.text));
+        if (idx >= 0) {
+          audio.currentTime = SEGMENTS[idx].start;
+          if (audio.paused) audio.play();
+          scrollToSeg(idx);
+        }
+      });
+      vocabList.appendChild(div);
+    });
+  }
+  updateNotebookCount();
 }
+
+// === Tab switching ===
+document.querySelectorAll('.vocab-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.vocab-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentTab = tab.dataset.tab;
+    buildVocabList(vocabSearchInput.value);
+  });
+});
+
+// === Popup "Add to notebook" button ===
+const popupAddBtn = document.getElementById('popupAddBtn');
+popupAddBtn.addEventListener('click', () => {
+  const word = popupWord.textContent;
+  if (!word) return;
+  const phonetic = popupPhonetic.textContent || '';
+  const meaning = popupMeaning.textContent || '';
+  addToNotebook(word, phonetic, meaning);
+  popupAddBtn.textContent = '✅ 已加入';
+  popupAddBtn.classList.add('added');
+  // Refresh list if on notebook tab
+  if (currentTab === 'notebook') buildVocabList(vocabSearchInput.value);
+});
+
+// === Notebook export/import/clear ===
+document.getElementById('nbExport').addEventListener('click', () => {
+  const nb = loadNotebook();
+  const blob = new Blob([JSON.stringify(nb, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'my-vocabulary-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('nbImport').addEventListener('click', () => {
+  document.getElementById('nbImportFile').click();
+});
+document.getElementById('nbImportFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const imported = JSON.parse(ev.target.result);
+      const nb = loadNotebook();
+      Object.assign(nb, imported);
+      saveNotebook(nb);
+      buildVocabList(vocabSearchInput.value);
+    } catch { alert('导入失败：文件格式不正确'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+document.getElementById('nbClear').addEventListener('click', () => {
+  if (confirm('确定清空单词本？此操作不可撤销。')) {
+    saveNotebook({});
+    buildVocabList(vocabSearchInput.value);
+  }
+});
 
 // === Scroll active segment into view ===
 function scrollToSeg(idx) {
