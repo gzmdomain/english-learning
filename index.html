@@ -826,7 +826,7 @@
   <div>
     <span class="popup-word" id="popupWord"></span>
     <span class="popup-phonetic" id="popupPhonetic"></span>
-    <button class="popup-speak" id="popupSpeak" title="Pronounce">🔊</button>
+    <button class="popup-speak" id="popupSpeak" type="button" title="Pronounce" aria-label="Pronounce">🔊</button>
   </div>
   <div class="popup-divider"></div>
   <div class="popup-meaning" id="popupMeaning"></div>
@@ -886,6 +886,38 @@ function clamp(n, min, max) {
   return Math.min(max, Math.max(min, n));
 }
 
+function normalizeAudioUrl(url) {
+  if (!url) return '';
+  return url.startsWith('//') ? `https:${url}` : url;
+}
+
+function getDictionaryAudio(entry) {
+  const sources = (entry.phonetics || [])
+    .map((phonetic) => normalizeAudioUrl(phonetic.audio || ''))
+    .filter(Boolean);
+
+  return sources.find((url) => /-us\.mp3|\/us\//i.test(url)) ||
+    sources.find((url) => /\.mp3(\?|$)/i.test(url)) ||
+    sources[0] ||
+    '';
+}
+
+function getEnglishVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = speechSynthesis.getVoices();
+  return voices.find((voice) => /^en(-|_)?us/i.test(voice.lang)) ||
+    voices.find((voice) => /^en/i.test(voice.lang)) ||
+    null;
+}
+
+function getStaticPronunciationSources(word) {
+  const safeWord = encodeURIComponent(word);
+  return [
+    `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${safeWord}--_us_1.mp3`,
+    `https://ssl.gstatic.com/dictionary/static/sounds/oxford/${safeWord}--_us_1.mp3`
+  ];
+}
+
 function highlightVocab(text) {
   let result = escapeHtml(text);
   // Split into words and non-words, wrap each word in a clickable span
@@ -912,6 +944,7 @@ const popupEnDef = document.getElementById('popupEnDef');
 const popupSource = document.getElementById('popupSource');
 const popupSpeak = document.getElementById('popupSpeak');
 const popupClose = document.getElementById('popupClose');
+const pronunciationAudio = new Audio();
 
 function positionPopup(targetEl) {
   const rect = targetEl.getBoundingClientRect();
@@ -938,6 +971,7 @@ function showPopup(word, targetEl) {
   popupMeaning.textContent = '';
   popupEnDef.innerHTML = '';
   popupSource.textContent = '';
+  popupSpeak.dataset.audioSrc = '';
 
   positionPopup(targetEl);
   wordPopup.classList.add('show');
@@ -988,6 +1022,11 @@ async function fetchEnglishDef(word, isVocab) {
       popupPhonetic.textContent = data[0].phonetic;
     }
 
+    const audioSrc = getDictionaryAudio(data[0]);
+    if (audioSrc && popupWord.textContent === word) {
+      popupSpeak.dataset.audioSrc = audioSrc;
+    }
+
     // Add English definitions
     const meanings = data[0].meanings || [];
     let defHtml = '';
@@ -1003,7 +1042,7 @@ async function fetchEnglishDef(word, isVocab) {
 }
 
 async function fetchWordInfo(word) {
-  const result = { word, phonetic: '', meaning: '', enDefs: [] };
+  const result = { word, phonetic: '', meaning: '', enDefs: [], audioSrc: '' };
 
   // Parallel: dictionary API + translation API
   const [dictResult, transResult] = await Promise.allSettled([
@@ -1015,6 +1054,7 @@ async function fetchWordInfo(word) {
   if (dictResult.status === 'fulfilled' && dictResult.value && dictResult.value[0]) {
     const entry = dictResult.value[0];
     result.phonetic = entry.phonetic || '';
+    result.audioSrc = getDictionaryAudio(entry);
     if (!result.phonetic && entry.phonetics) {
       const p = entry.phonetics.find(ph => ph.text);
       if (p) result.phonetic = p.text;
@@ -1049,6 +1089,7 @@ function renderLookupResult(result) {
   popupMeaning.textContent = result.meaning || '';
   popupSource.textContent = result.meaning ? '🌐 在线翻译' : '';
   popupSource.className = 'popup-source';
+  popupSpeak.dataset.audioSrc = result.audioSrc || '';
 
   let defHtml = '';
   for (const d of (result.enDefs || [])) {
@@ -1062,13 +1103,105 @@ function renderLookupResult(result) {
 }
 
 // === TTS pronunciation ===
-popupSpeak.addEventListener('click', () => {
-  const word = popupWord.textContent;
-  if (!word) return;
+function speakWithBrowserVoice(word) {
+  if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return false;
+
+  speechSynthesis.cancel();
+  speechSynthesis.resume?.();
+
   const utt = new SpeechSynthesisUtterance(word);
   utt.lang = 'en-US';
   utt.rate = 0.85;
+  utt.voice = getEnglishVoice();
   speechSynthesis.speak(utt);
+  return true;
+}
+
+function playPronunciationAudio(source) {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    let startedAt = 0;
+    const finish = (handler) => {
+      if (settled) return;
+      settled = true;
+      pronunciationAudio.removeEventListener('playing', onPlaying);
+      pronunciationAudio.removeEventListener('canplay', onPlaying);
+      pronunciationAudio.removeEventListener('error', onError);
+      clearTimeout(timer);
+      handler();
+    };
+    const onPlaying = () => {
+      startedAt = pronunciationAudio.currentTime || 0;
+      setTimeout(() => {
+        if (settled) return;
+        if (!pronunciationAudio.paused && pronunciationAudio.currentTime > startedAt) {
+          finish(resolve);
+        }
+      }, 250);
+    };
+    const onError = () => finish(() => reject(new Error('pronunciation audio failed')));
+    const timer = setTimeout(() => {
+      pronunciationAudio.pause();
+      finish(() => reject(new Error('pronunciation audio timed out')));
+    }, 2200);
+
+    pronunciationAudio.addEventListener('playing', onPlaying);
+    pronunciationAudio.addEventListener('canplay', onPlaying);
+    pronunciationAudio.addEventListener('error', onError);
+    pronunciationAudio.pause();
+    pronunciationAudio.currentTime = 0;
+    pronunciationAudio.src = source;
+    pronunciationAudio.play().catch(onError);
+  });
+}
+
+async function playPronunciation(word) {
+  const cleanWord = word.toLowerCase().replace(/^['-]+|['-]+$/g, '');
+  if (!cleanWord) return;
+
+  popupSpeak.disabled = true;
+  window.speechSynthesis?.cancel();
+
+  if (popupSpeak.dataset.audioSrc) {
+    try {
+      popupSpeak.disabled = false;
+      await playPronunciationAudio(popupSpeak.dataset.audioSrc);
+      return;
+    } catch (e) {
+      // Fall back to synthesized pronunciation.
+    }
+  }
+
+  for (const source of getStaticPronunciationSources(cleanWord)) {
+    try {
+      popupSpeak.disabled = false;
+      await playPronunciationAudio(source);
+      return;
+    } catch (e) {
+      // Try the next pronunciation source.
+    }
+  }
+
+  if (speakWithBrowserVoice(cleanWord)) {
+    setTimeout(() => {
+      popupSpeak.disabled = false;
+    }, 800);
+    return;
+  }
+
+  try {
+    popupSpeak.disabled = false;
+    await playPronunciationAudio(`https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encodeURIComponent(cleanWord)}`);
+  } catch (e) {
+    popupSpeak.disabled = false;
+  }
+}
+
+popupSpeak.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const word = popupWord.textContent;
+  if (!word) return;
+  playPronunciation(word);
 });
 
 // === Close popup ===
