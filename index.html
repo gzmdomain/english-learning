@@ -91,7 +91,7 @@
   .subtitle-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .seg {
-    padding: 12px 16px;
+    padding: 12px 76px 12px 16px;
     margin-bottom: 4px;
     border-radius: 10px;
     cursor: pointer;
@@ -548,24 +548,54 @@
   }
   .loop-indicator.active { opacity: 1; }
 
-  /* Sentence repeat button */
-  .seg-repeat {
+  /* Sentence action buttons */
+  .seg-actions {
     position: absolute;
     right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .seg-action {
     background: none;
     border: none;
     color: var(--text-dim);
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.2s;
-    padding: 4px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  .seg:hover .seg-repeat { opacity: 0.6; }
-  .seg-repeat:hover { opacity: 1 !important; color: var(--accent); }
+  .seg:hover .seg-action,
+  .seg:focus-within .seg-action {
+    opacity: 0.6;
+  }
+  .seg-action:hover { opacity: 1 !important; color: var(--accent); background: rgba(255,255,255,0.06); }
+  .seg-action:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
+  .seg-translation {
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 2px solid var(--accent);
+    color: var(--text-primary);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .seg-translation[hidden] { display: none; }
+  .seg-translation.is-loading,
+  .seg-translation.is-error {
+    color: var(--text-dim);
+  }
 
   /* === Click-to-lookup popup === */
   .word-clickable {
@@ -827,6 +857,7 @@ const loading = document.getElementById('loading');
 
 let currentSegIndex = -1;
 let loopSegIndex = -1; // for sentence loop
+const sentenceTranslationCache = {};
 
 // === Helpers ===
 function formatTime(s) {
@@ -837,6 +868,12 @@ function formatTime(s) {
 
 function escapeHtml(t) {
   return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function decodeHtmlEntities(t) {
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = t;
+  return textarea.value;
 }
 
 function highlightVocab(text) {
@@ -961,7 +998,7 @@ async function fetchWordInfo(word) {
   // Parallel: dictionary API + translation API
   const [dictResult, transResult] = await Promise.allSettled([
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`).then(r => r.ok ? r.json() : null),
-    fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|zh`).then(r => r.ok ? r.json() : null)
+    fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=${encodeURIComponent('en|zh')}`).then(r => r.ok ? r.json() : null)
   ]);
 
   // Parse dictionary
@@ -1057,11 +1094,19 @@ function buildSubtitles() {
     div.innerHTML = `
       <div class="seg-time">${formatTime(seg.start)}</div>
       <div class="seg-text">${highlightVocab(seg.text)}</div>
-      <button class="seg-repeat" title="Repeat this sentence">🔁</button>
+      <div class="seg-translation" hidden></div>
+      <div class="seg-actions">
+        <button class="seg-action seg-translate" type="button" title="翻译本句" aria-label="翻译本句">译</button>
+        <button class="seg-action seg-repeat" type="button" title="Repeat this sentence" aria-label="Repeat this sentence">🔁</button>
+      </div>
     `;
     div.addEventListener('click', (e) => {
-      if (e.target.classList.contains('seg-repeat')) {
+      if (e.target.closest('.seg-repeat')) {
         toggleLoop(i);
+        return;
+      }
+      if (e.target.closest('.seg-translate')) {
+        translateSegment(i);
         return;
       }
       if (e.target.closest('.word-clickable')) return;
@@ -1072,8 +1117,68 @@ function buildSubtitles() {
       e.stopPropagation();
       toggleLoop(i);
     });
+    div.querySelector('.seg-translate').addEventListener('click', (e) => {
+      e.stopPropagation();
+      translateSegment(i);
+    });
     subtitlePanel.appendChild(div);
   });
+}
+
+function setSegmentTranslationState(i, text, state = 'ready') {
+  const el = subtitlePanel.children[i];
+  if (!el) return;
+
+  const translation = el.querySelector('.seg-translation');
+  const button = el.querySelector('.seg-translate');
+  if (!translation || !button) return;
+
+  translation.hidden = false;
+  translation.classList.toggle('is-loading', state === 'loading');
+  translation.classList.toggle('is-error', state === 'error');
+  translation.textContent = text;
+
+  button.disabled = state === 'loading';
+  button.textContent = state === 'loading' ? '...' : '译';
+}
+
+async function translateSegment(i) {
+  const seg = SEGMENTS[i];
+  if (!seg) return;
+
+  const cacheKey = seg.text;
+  if (sentenceTranslationCache[cacheKey]) {
+    setSegmentTranslationState(i, sentenceTranslationCache[cacheKey]);
+    return;
+  }
+
+  setSegmentTranslationState(i, '正在翻译...', 'loading');
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+
+  try {
+    const resp = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(seg.text)}&langpair=${encodeURIComponent('en|zh')}`,
+      { signal: controller.signal }
+    );
+    if (!resp.ok) throw new Error('translation request failed');
+
+    const data = await resp.json();
+    if (data && data.responseStatus && data.responseStatus !== 200) {
+      throw new Error(data.responseDetails || 'translation service rejected request');
+    }
+    const translatedText = data && data.responseData && data.responseData.translatedText;
+    const translated = translatedText ? decodeHtmlEntities(translatedText.trim()) : '';
+    if (!translated) throw new Error('empty translation');
+
+    sentenceTranslationCache[cacheKey] = translated;
+    setSegmentTranslationState(i, translated);
+  } catch (e) {
+    setSegmentTranslationState(i, '暂时无法翻译，请稍后重试。', 'error');
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function toggleLoop(i) {
