@@ -39,8 +39,10 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     height: 100vh;
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    overflow: hidden;
   }
 
   /* === Header === */
@@ -78,6 +80,7 @@
     gap: 0;
     overflow: hidden;
     min-height: 0;
+    min-width: 0;
   }
 
   /* === Subtitle Panel === */
@@ -85,13 +88,14 @@
     overflow-y: auto;
     padding: 20px 24px;
     scroll-behavior: smooth;
+    min-width: 0;
   }
   .subtitle-panel::-webkit-scrollbar { width: 4px; }
   .subtitle-panel::-webkit-scrollbar-track { background: transparent; }
   .subtitle-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .seg {
-    padding: 12px 76px 12px 16px;
+    padding: 12px 136px 12px 16px;
     margin-bottom: 4px;
     border-radius: 10px;
     cursor: pointer;
@@ -124,6 +128,21 @@
     line-height: 1.7;
     color: var(--text-secondary);
     transition: color 0.25s;
+  }
+  .dictation-prompt {
+    display: none;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  body.dictation-mode .seg:not(.is-revealed) .seg-text {
+    display: none;
+  }
+  body.dictation-mode .seg:not(.is-revealed) .dictation-prompt {
+    display: block;
+  }
+  body.dictation-mode .seg:not(.is-revealed) {
+    background-image: linear-gradient(90deg, rgba(118,185,0,0.08), transparent 55%);
   }
 
   /* Vocab highlight in subtitle */
@@ -266,9 +285,9 @@
   }
   .vocab-tab {
     flex: 1;
-    padding: 10px 0;
+    padding: 10px 4px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--text-dim);
     cursor: pointer;
@@ -333,11 +352,13 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-width: 0;
   }
   .progress-row {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
   }
   .progress-row .time-label {
     font-size: 12px;
@@ -348,6 +369,7 @@
   }
   .progress-bar-container {
     flex: 1;
+    min-width: 0;
     height: 6px;
     background: rgba(255,255,255,0.08);
     border-radius: 3px;
@@ -390,6 +412,7 @@
     align-items: center;
     gap: 12px;
     justify-content: center;
+    min-width: 0;
   }
   .btn {
     background: none;
@@ -464,7 +487,7 @@
 
   /* === Responsive === */
   @media (max-width: 900px) {
-    .main { grid-template-columns: 1fr; }
+    .main { grid-template-columns: minmax(0, 1fr); width: 100%; }
     .vocab-sidebar { display: none; }
   }
 
@@ -520,20 +543,28 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Auto-scroll toggle */
-  .autoscroll-toggle {
+  /* Subtitle tools */
+  .subtitle-tools {
     position: absolute;
     top: 12px;
     right: 20px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     font-size: 12px;
     color: var(--text-dim);
-    cursor: pointer;
     z-index: 10;
   }
-  .autoscroll-toggle input { accent-color: var(--accent); }
+  .autoscroll-toggle,
+  .dictation-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .autoscroll-toggle input,
+  .dictation-toggle input { accent-color: var(--accent); }
 
   .subtitle-wrapper {
     position: relative;
@@ -541,6 +572,7 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
+    min-width: 0;
   }
 
   /* Loop mode indicator */
@@ -578,11 +610,24 @@
     align-items: center;
     justify-content: center;
   }
+  .seg-reveal {
+    display: none;
+  }
+  body.dictation-mode .seg-reveal {
+    display: inline-flex;
+  }
   .seg:hover .seg-action,
   .seg:focus-within .seg-action {
     opacity: 0.6;
   }
+  body.dictation-mode .seg-action {
+    opacity: 0.72;
+  }
   .seg-action:hover { opacity: 1 !important; color: var(--accent); background: rgba(255,255,255,0.06); }
+  .seg-action.is-active {
+    opacity: 1;
+    color: var(--accent);
+  }
   .seg-action:disabled {
     cursor: wait;
     opacity: 0.7;
@@ -600,6 +645,23 @@
   .seg-translation.is-loading,
   .seg-translation.is-error {
     color: var(--text-dim);
+  }
+  .sentence-card .sentence-time {
+    color: var(--accent);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+  .sentence-card .sentence-text {
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.55;
+    margin-top: 5px;
+  }
+  .sentence-card .sentence-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
   }
 
   /* === Click-to-lookup popup === */
@@ -761,10 +823,15 @@
   <!-- Main -->
   <div class="main">
     <div class="subtitle-wrapper">
-      <label class="autoscroll-toggle">
-        <input type="checkbox" id="autoScroll" checked> Auto-scroll
+      <div class="subtitle-tools">
+        <label class="autoscroll-toggle">
+          <input type="checkbox" id="autoScroll" checked> Auto-scroll
+        </label>
+        <label class="dictation-toggle">
+          <input type="checkbox" id="dictationMode"> 听写
+        </label>
         <span class="loop-indicator" id="loopIndicator">🔁 Loop</span>
-      </label>
+      </div>
       <div class="subtitle-panel" id="subtitlePanel"></div>
     </div>
     <div class="vocab-sidebar" id="vocabSidebar">
@@ -774,6 +841,7 @@
       <div class="vocab-tabs">
         <button class="vocab-tab active" data-tab="course" id="tabCourse">📖 课文词汇 <span class="tab-badge" id="courseCount">0</span></button>
         <button class="vocab-tab" data-tab="notebook" id="tabNotebook">⭐ 我的单词本 <span class="tab-badge" id="notebookCount">0</span></button>
+        <button class="vocab-tab" data-tab="sentences" id="tabSentences">📌 难句 <span class="tab-badge" id="sentenceCount">0</span></button>
       </div>
       <div class="vocab-search">
         <input type="text" id="vocabSearchInput" placeholder="Search words...">
@@ -855,6 +923,7 @@ const totalTimeEl = document.getElementById('totalTime');
 const vocabList = document.getElementById('vocabList');
 const vocabSearchInput = document.getElementById('vocabSearchInput');
 const autoScrollCheck = document.getElementById('autoScroll');
+const dictationModeCheck = document.getElementById('dictationMode');
 const loopIndicator = document.getElementById('loopIndicator');
 const volumeSlider = document.getElementById('volumeSlider');
 const volumeBtn = document.getElementById('volumeBtn');
@@ -864,6 +933,7 @@ let currentSegIndex = -1;
 let loopSegIndex = -1; // for sentence loop
 const sentenceTranslationCache = {};
 let isDraggingProgress = false;
+const revealedSegments = new Set();
 
 // === Helpers ===
 function formatTime(s) {
@@ -1237,13 +1307,20 @@ function buildSubtitles() {
     div.innerHTML = `
       <div class="seg-time">${formatTime(seg.start)}</div>
       <div class="seg-text">${highlightVocab(seg.text)}</div>
+      <div class="dictation-prompt">听写模式：先听这一句，再点「显」核对原文。</div>
       <div class="seg-translation" hidden></div>
       <div class="seg-actions">
+        <button class="seg-action seg-reveal" type="button" title="显示原文" aria-label="显示原文">显</button>
         <button class="seg-action seg-translate" type="button" title="翻译本句" aria-label="翻译本句">译</button>
+        <button class="seg-action seg-favorite" type="button" title="收藏难句" aria-label="收藏难句">☆</button>
         <button class="seg-action seg-repeat" type="button" title="Repeat this sentence" aria-label="Repeat this sentence">🔁</button>
       </div>
     `;
     div.addEventListener('click', (e) => {
+      if (e.target.closest('.seg-reveal')) {
+        revealSegment(i);
+        return;
+      }
       if (e.target.closest('.seg-repeat')) {
         toggleLoop(i);
         return;
@@ -1252,9 +1329,17 @@ function buildSubtitles() {
         translateSegment(i);
         return;
       }
+      if (e.target.closest('.seg-favorite')) {
+        toggleSentenceFavorite(i);
+        return;
+      }
       if (e.target.closest('.word-clickable')) return;
       audio.currentTime = seg.start;
       if (audio.paused) audio.play();
+    });
+    div.querySelector('.seg-reveal').addEventListener('click', (e) => {
+      e.stopPropagation();
+      revealSegment(i);
     });
     div.querySelector('.seg-repeat').addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1264,8 +1349,39 @@ function buildSubtitles() {
       e.stopPropagation();
       translateSegment(i);
     });
+    div.querySelector('.seg-favorite').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSentenceFavorite(i);
+    });
     subtitlePanel.appendChild(div);
   });
+  restoreRevealedSegments();
+  updateSentenceFavoriteButtons();
+}
+
+function applyDictationMode() {
+  const enabled = dictationModeCheck.checked;
+  document.body.classList.toggle('dictation-mode', enabled);
+  localStorage.setItem('english_learning_dictation_mode', enabled ? '1' : '0');
+}
+
+function revealSegment(i) {
+  revealedSegments.add(i);
+  const el = subtitlePanel.children[i];
+  if (!el) return;
+
+  el.classList.add('is-revealed');
+  const button = el.querySelector('.seg-reveal');
+  if (button) {
+    button.classList.add('is-active');
+    button.textContent = '文';
+    button.title = '原文已显示';
+    button.setAttribute('aria-label', '原文已显示');
+  }
+}
+
+function restoreRevealedSegments() {
+  revealedSegments.forEach((index) => revealSegment(index));
 }
 
 function setSegmentTranslationState(i, text, state = 'ready') {
@@ -1342,6 +1458,7 @@ function toggleLoop(i) {
 
 // === Notebook (localStorage) ===
 const NB_KEY = 'english_learning_notebook';
+const SENTENCE_KEY = 'english_learning_sentences';
 function loadNotebook() {
   try { return JSON.parse(localStorage.getItem(NB_KEY)) || {}; } catch { return {}; }
 }
@@ -1369,18 +1486,68 @@ function updateNotebookCount() {
   document.getElementById('notebookCount').textContent = count;
 }
 
+function loadSentenceFavorites() {
+  try {
+    return (JSON.parse(localStorage.getItem(SENTENCE_KEY)) || [])
+      .map(Number)
+      .filter((index) => Number.isInteger(index) && index >= 0 && index < SEGMENTS.length);
+  } catch {
+    return [];
+  }
+}
+
+function saveSentenceFavorites(items) {
+  const unique = [...new Set(items)].sort((a, b) => a - b);
+  localStorage.setItem(SENTENCE_KEY, JSON.stringify(unique));
+  updateSentenceFavoriteButtons();
+  updateSentenceCount();
+}
+
+function isSentenceFavorite(index) {
+  return loadSentenceFavorites().includes(index);
+}
+
+function toggleSentenceFavorite(index) {
+  const current = loadSentenceFavorites();
+  const next = current.includes(index)
+    ? current.filter((item) => item !== index)
+    : [...current, index];
+  saveSentenceFavorites(next);
+  if (currentTab === 'sentences') buildVocabList(vocabSearchInput.value);
+}
+
+function updateSentenceCount() {
+  document.getElementById('sentenceCount').textContent = loadSentenceFavorites().length;
+}
+
+function updateSentenceFavoriteButtons() {
+  const favorites = new Set(loadSentenceFavorites());
+  document.querySelectorAll('.seg').forEach((segEl) => {
+    const index = Number(segEl.dataset.index);
+    const button = segEl.querySelector('.seg-favorite');
+    if (!button) return;
+
+    const saved = favorites.has(index);
+    button.classList.toggle('is-active', saved);
+    button.textContent = saved ? '★' : '☆';
+    button.title = saved ? '取消收藏难句' : '收藏难句';
+    button.setAttribute('aria-label', button.title);
+  });
+}
+
 // === Tab state ===
-let currentTab = 'course'; // 'course' or 'notebook'
+let currentTab = 'course'; // 'course', 'notebook', or 'sentences'
 
 // === Build vocab sidebar ===
 function buildVocabList(filter = '') {
   vocabList.innerHTML = '';
   const notebookActions = document.getElementById('notebookActions');
+  const query = filter.trim().toLowerCase();
 
   if (currentTab === 'course') {
     notebookActions.classList.remove('show');
     const entries = Object.entries(VOCAB)
-      .filter(([w, info]) => !filter || w.includes(filter.toLowerCase()) || info.meaning.includes(filter))
+      .filter(([w, info]) => !query || w.includes(query) || info.meaning.includes(filter))
       .sort((a, b) => a[0].localeCompare(b[0]));
 
     document.getElementById('vocabBadge').textContent = entries.length;
@@ -1405,12 +1572,12 @@ function buildVocabList(filter = '') {
       });
       vocabList.appendChild(div);
     });
-  } else {
+  } else if (currentTab === 'notebook') {
     // Notebook tab
     notebookActions.classList.add('show');
     const nb = loadNotebook();
     const entries = Object.entries(nb)
-      .filter(([w, info]) => !filter || w.includes(filter.toLowerCase()) || info.meaning.includes(filter))
+      .filter(([w, info]) => !query || w.includes(query) || info.meaning.includes(filter))
       .sort((a, b) => a[0].localeCompare(b[0]));
 
     document.getElementById('vocabBadge').textContent = entries.length;
@@ -1444,8 +1611,63 @@ function buildVocabList(filter = '') {
       });
       vocabList.appendChild(div);
     });
+  } else {
+    // Favorite sentences tab
+    notebookActions.classList.remove('show');
+    const entries = loadSentenceFavorites()
+      .map((index) => ({ index, ...SEGMENTS[index] }))
+      .filter((item) => !query || item.text.toLowerCase().includes(query) || formatTime(item.start).includes(query));
+
+    document.getElementById('vocabBadge').textContent = entries.length;
+    updateSentenceCount();
+
+    if (entries.length === 0) {
+      vocabList.innerHTML = '<div style="padding:24px 16px;text-align:center;color:var(--text-dim);font-size:13px;">暂无难句<br><br>点击字幕右侧的「☆」收藏需要反复精听的句子</div>';
+      return;
+    }
+
+    entries.forEach((item) => {
+      const div = document.createElement('div');
+      div.className = 'vocab-item sentence-card';
+      div.innerHTML = `
+        <button class="vi-delete" title="取消收藏">✕</button>
+        <div class="sentence-time">${formatTime(item.start)}</div>
+        <div class="sentence-text">${escapeHtml(item.text)}</div>
+        <div class="sentence-actions">
+          <button class="nb-action-btn sentence-play" type="button">播放</button>
+          <button class="nb-action-btn sentence-loop" type="button">循环</button>
+        </div>
+      `;
+
+      const playSentence = () => {
+        audio.currentTime = item.start;
+        audio.play();
+        scrollToSeg(item.index);
+        revealSegment(item.index);
+      };
+
+      div.querySelector('.vi-delete').addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSentenceFavorite(item.index);
+      });
+      div.querySelector('.sentence-play').addEventListener('click', (e) => {
+        e.stopPropagation();
+        playSentence();
+      });
+      div.querySelector('.sentence-loop').addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleLoop(item.index);
+        scrollToSeg(item.index);
+      });
+      div.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return;
+        playSentence();
+      });
+      vocabList.appendChild(div);
+    });
   }
   updateNotebookCount();
+  updateSentenceCount();
 }
 
 // === Tab switching ===
@@ -1682,6 +1904,10 @@ vocabSearchInput.addEventListener('input', () => {
   buildVocabList(vocabSearchInput.value);
 });
 
+dictationModeCheck.addEventListener('change', () => {
+  applyDictationMode();
+});
+
 // Mobile vocab toggle
 document.getElementById('vocabToggle').addEventListener('click', () => {
   document.getElementById('vocabSidebar').classList.toggle('show');
@@ -1707,12 +1933,31 @@ document.addEventListener('keydown', (e) => {
     case 'ArrowDown':
       if (currentSegIndex < SEGMENTS.length - 1) audio.currentTime = SEGMENTS[currentSegIndex + 1].start;
       break;
+    case 'r':
+    case 'R':
+      if (currentSegIndex >= 0) toggleLoop(currentSegIndex);
+      break;
+    case 't':
+    case 'T':
+      if (currentSegIndex >= 0) translateSegment(currentSegIndex);
+      break;
+    case 's':
+    case 'S':
+      if (currentSegIndex >= 0) toggleSentenceFavorite(currentSegIndex);
+      break;
+    case 'v':
+    case 'V':
+      if (currentSegIndex >= 0) revealSegment(currentSegIndex);
+      break;
   }
 });
 
 // === Init ===
+dictationModeCheck.checked = localStorage.getItem('english_learning_dictation_mode') === '1';
 buildSubtitles();
+applyDictationMode();
 buildVocabList();
+updateSentenceCount();
 
 // Fallback hide loading
 setTimeout(() => loading.classList.add('hidden'), 3000);
