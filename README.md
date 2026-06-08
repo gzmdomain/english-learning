@@ -52,6 +52,7 @@ with open(r'C:\miki\English\transcript.json', 'w', encoding='utf-8') as f:
 **转录与校准结果：**
 - 初版来自 Whisper 转录，后续用公开英文字幕稿校对英文内容，并结合原时间轴拆分为更适合听写的短句
 - 共 **279 段** 校准字幕
+- 根据听感反馈，字幕时间轴整体后移 **0.5 秒**，减少字幕早于声音的问题
 - 音频时长 **31.7 分钟**（约 1907 秒）
 - 输出文件：`transcript.json`，发布版内嵌在 `index.html` 的 `SEGMENTS`
 
