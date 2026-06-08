@@ -49,10 +49,11 @@ with open(r'C:\miki\English\transcript.json', 'w', encoding='utf-8') as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 ```
 
-**转录结果：**
-- 共 **254 段** 字幕
-- 音频时长 **31.7 分钟**（1903 秒）
-- 输出文件：`transcript.json`
+**转录与校准结果：**
+- 初版来自 Whisper 转录，后续用公开英文字幕稿校对英文内容，并结合原时间轴拆分为更适合听写的短句
+- 共 **279 段** 校准字幕
+- 音频时长 **31.7 分钟**（约 1907 秒）
+- 输出文件：`transcript.json`，发布版内嵌在 `index.html` 的 `SEGMENTS`
 
 **字幕数据格式示例：**
 ```json
