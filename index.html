@@ -354,8 +354,10 @@
     cursor: pointer;
     position: relative;
     transition: height 0.15s;
+    touch-action: none;
   }
   .progress-bar-container:hover { height: 10px; }
+  .progress-bar-container.dragging { height: 10px; }
   .progress-bar-fill {
     height: 100%;
     background: var(--accent);
@@ -378,6 +380,9 @@
     transition: opacity 0.15s;
   }
   .progress-bar-container:hover .progress-bar-fill::after {
+    opacity: 1;
+  }
+  .progress-bar-container.dragging .progress-bar-fill::after {
     opacity: 1;
   }
   .controls-row {
@@ -858,6 +863,7 @@ const loading = document.getElementById('loading');
 let currentSegIndex = -1;
 let loopSegIndex = -1; // for sentence loop
 const sentenceTranslationCache = {};
+let isDraggingProgress = false;
 
 // === Helpers ===
 function formatTime(s) {
@@ -874,6 +880,10 @@ function decodeHtmlEntities(t) {
   const textarea = document.createElement('textarea');
   textarea.innerHTML = t;
   return textarea.value;
+}
+
+function clamp(n, min, max) {
+  return Math.min(max, Math.max(min, n));
 }
 
 function highlightVocab(text) {
@@ -1404,6 +1414,17 @@ function updateActiveSeg() {
   }
 }
 
+function seekFromProgressClientX(clientX) {
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+  const rect = progressBar.getBoundingClientRect();
+  const pct = clamp((clientX - rect.left) / rect.width, 0, 1);
+  audio.currentTime = pct * audio.duration;
+  progressFill.style.width = pct * 100 + '%';
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+  updateActiveSeg();
+}
+
 // === Loop check ===
 function checkLoop() {
   if (loopSegIndex >= 0) {
@@ -1443,9 +1464,38 @@ playBtn.addEventListener('click', () => {
 });
 
 progressBar.addEventListener('click', (e) => {
-  const rect = progressBar.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  audio.currentTime = pct * audio.duration;
+  seekFromProgressClientX(e.clientX);
+});
+
+progressBar.addEventListener('pointerdown', (e) => {
+  if (e.button !== undefined && e.button !== 0) return;
+
+  isDraggingProgress = true;
+  progressBar.classList.add('dragging');
+  progressBar.setPointerCapture?.(e.pointerId);
+  seekFromProgressClientX(e.clientX);
+});
+
+progressBar.addEventListener('pointermove', (e) => {
+  if (!isDraggingProgress) return;
+
+  e.preventDefault();
+  seekFromProgressClientX(e.clientX);
+});
+
+function endProgressDrag(e) {
+  if (!isDraggingProgress) return;
+
+  isDraggingProgress = false;
+  progressBar.classList.remove('dragging');
+  progressBar.releasePointerCapture?.(e.pointerId);
+  seekFromProgressClientX(e.clientX);
+}
+
+progressBar.addEventListener('pointerup', endProgressDrag);
+progressBar.addEventListener('pointercancel', () => {
+  isDraggingProgress = false;
+  progressBar.classList.remove('dragging');
 });
 
 document.getElementById('backBtn').addEventListener('click', () => {
