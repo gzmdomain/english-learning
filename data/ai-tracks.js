@@ -1,5 +1,2461 @@
 window.AI_LEARNING_TRACKS = [
   {
+    "id": "microsoft-worklab-ai-future-work",
+    "title": "AI Won't Decide the Future of Work",
+    "subtitle": "Real Microsoft WorkLab interview on AI, jobs, and human agency",
+    "sourceTitle": "Microsoft WorkLab: Aneesh Raman on AI and the Future of Work",
+    "sourceUrl": "https://www.microsoft.com/en-us/worklab/podcast/aneesh-raman-ai-will-not-decide-the-future-of-work-unless-you-let-it",
+    "relatedArticleUrl": "https://blogs.microsoft.com/on-the-issues/2026/06/10/ai-jobs-and-the-next-generation/",
+    "license": "Microsoft WorkLab podcast RSS: copyright Microsoft Corporation. All rights reserved.",
+    "audio": "https://traffic.libsyn.com/secure/worklab/Worklab_S10E1_Aneesh_Raman_Full-Episode_20260331.mp3?dest-id=3002810",
+    "transcriptUrl": "https://static.libsyn.com/p/assets/7/b/0/0/7b002502a7a15dcbd959afa2a1bf1c87/Worklab_S10E1_Aneesh_Raman_Full-Episode_VIDEO.srt",
+    "duration": 2317,
+    "vocab": {
+      "agency": {
+        "meaning": "能动性；自主行动能力",
+        "phonetic": "/ˈeɪdʒənsi/"
+      },
+      "adaptability": {
+        "meaning": "适应能力",
+        "phonetic": "/əˌdæptəˈbɪləti/"
+      },
+      "uncertainty": {
+        "meaning": "不确定性",
+        "phonetic": "/ʌnˈsɜːrtnti/"
+      },
+      "inevitability": {
+        "meaning": "必然性；不可避免",
+        "phonetic": "/ɪnˌevɪtəˈbɪləti/"
+      },
+      "automated": {
+        "meaning": "自动化的",
+        "phonetic": "/ˈɔːtəmeɪtɪd/"
+      },
+      "automation": {
+        "meaning": "自动化",
+        "phonetic": "/ˌɔːtəˈmeɪʃn/"
+      },
+      "capabilities": {
+        "meaning": "能力；功能",
+        "phonetic": "/ˌkeɪpəˈbɪlətiz/"
+      },
+      "supercharge": {
+        "meaning": "大幅增强；加速",
+        "phonetic": "/ˌsuːpərˈtʃɑːrdʒ/"
+      },
+      "organizations": {
+        "meaning": "组织；机构",
+        "phonetic": "/ˌɔːrɡənəˈzeɪʃənz/"
+      },
+      "curiosity": {
+        "meaning": "好奇心",
+        "phonetic": "/ˌkjʊriˈɑːsəti/"
+      },
+      "resilience": {
+        "meaning": "韧性；复原力",
+        "phonetic": "/rɪˈzɪliəns/"
+      },
+      "career": {
+        "meaning": "职业；事业",
+        "phonetic": "/kəˈrɪr/"
+      },
+      "workforce": {
+        "meaning": "劳动力；员工队伍",
+        "phonetic": "/ˈwɜːrkfɔːrs/"
+      },
+      "economic": {
+        "meaning": "经济的",
+        "phonetic": "/ˌiːkəˈnɑːmɪk/"
+      },
+      "opportunity": {
+        "meaning": "机会",
+        "phonetic": "/ˌɑːpərˈtuːnəti/"
+      },
+      "technological": {
+        "meaning": "技术的",
+        "phonetic": "/ˌteknəˈlɑːdʒɪkl/"
+      },
+      "disruption": {
+        "meaning": "颠覆；扰动",
+        "phonetic": "/dɪsˈrʌpʃn/"
+      },
+      "productivity": {
+        "meaning": "生产力",
+        "phonetic": "/ˌproʊdʌkˈtɪvəti/"
+      },
+      "employee": {
+        "meaning": "员工",
+        "phonetic": "/ɪmˈplɔɪiː/"
+      },
+      "leadership": {
+        "meaning": "领导力",
+        "phonetic": "/ˈliːdərʃɪp/"
+      }
+    },
+    "segments": [
+      {
+        "start": 0,
+        "end": 9.55,
+        "text": "It's really important all of us recognize that at an individual level, at a organizational level, at a community level, at a societal level, this is undecided."
+      },
+      {
+        "start": 9.55,
+        "end": 13.64,
+        "text": "And we decide, not technology, we decide where it goes."
+      },
+      {
+        "start": 13.64,
+        "end": 19.18,
+        "text": "And if you start with that place, you immediately start to have greater agency over this moment."
+      },
+      {
+        "start": 26.86,
+        "end": 29.27,
+        "text": "Welcome to WorkLab, the podcast from Microsoft."
+      },
+      {
+        "start": 29.27,
+        "end": 30.72,
+        "text": "I'm your host, Molly Wood."
+      },
+      {
+        "start": 30.72,
+        "end": 34.62,
+        "text": "On WorkLab, we talk to experts about AI and the future of work."
+      },
+      {
+        "start": 34.62,
+        "end": 40.73,
+        "text": "From how technology can supercharge human capabilities to how it can transform entire organizations."
+      },
+      {
+        "start": 40.73,
+        "end": 54.05,
+        "text": "Today, we're joined by Aneesh Raman, LinkedIn's Chief Economic Opportunity Officer and coauthor, along with LinkedIn CEO Ryan Roslansky, of a timely new book called \"Open to Work: How to Get Ahead in the Age of AI.”"
+      },
+      {
+        "start": 54.05,
+        "end": 55.28,
+        "text": "Aneesh, welcome to WorkLab."
+      },
+      {
+        "start": 55.28,
+        "end": 57.14,
+        "text": "Thanks for having me back."
+      },
+      {
+        "start": 57.14,
+        "end": 59.23,
+        "text": "We last talked in 2023."
+      },
+      {
+        "start": 59.23,
+        "end": 63.36,
+        "text": "It is almost unfathomable to think about what has changed over time."
+      },
+      {
+        "start": 63.36,
+        "end": 65.04,
+        "text": "A long ago, a land far away."
+      },
+      {
+        "start": 65.04,
+        "end": 68.21,
+        "text": "Not least of which is that you have now published a book, so congratulations on that."
+      },
+      {
+        "start": 68.21,
+        "end": 68.68,
+        "text": "Thank you."
+      },
+      {
+        "start": 68.68,
+        "end": 74,
+        "text": "What do you think about this time that we're in now, compared to such a brief time ago?"
+      },
+      {
+        "start": 74,
+        "end": 79.62,
+        "text": "It's hard to get my head around where we were because everything has changed, um, so much so quickly."
+      },
+      {
+        "start": 79.62,
+        "end": 91.22,
+        "text": "But, you know, if I were to compare where we were back then to where we are now, I think the biggest change is that people are starting to feel urgency about how to embrace or at least engage in this moment of change."
+      },
+      {
+        "start": 91.22,
+        "end": 95.25,
+        "text": "You know, the early chapters of the AI story, first it was, is it real or not?"
+      },
+      {
+        "start": 95.25,
+        "end": 97.69,
+        "text": "Is it for some people, like crypto versus the internet?"
+      },
+      {
+        "start": 97.69,
+        "end": 98.49,
+        "text": "Is it a fad?"
+      },
+      {
+        "start": 98.49,
+        "end": 99.53,
+        "text": "Is it here to stay?"
+      },
+      {
+        "start": 99.53,
+        "end": 101.43,
+        "text": "And slowly we settled on, no, this is real."
+      },
+      {
+        "start": 101.43,
+        "end": 103.65,
+        "text": "This is like a general purpose technology."
+      },
+      {
+        "start": 103.65,
+        "end": 104.92,
+        "text": "It's going to affect a lot."
+      },
+      {
+        "start": 104.92,
+        "end": 109.46,
+        "text": "And then it moved to this place that was sort of is it going to change things overnight or over decades?"
+      },
+      {
+        "start": 109.46,
+        "end": 122.76,
+        "text": "And I feel like we sort of stayed in that place until fairly recently where we've started realizing there's no one way it's going to play out for everyone all at once, but it is building quick enough in capabilities that we all have to start paying attention."
+      },
+      {
+        "start": 122.76,
+        "end": 128.91,
+        "text": "What hasn't changed, though, is that I still feel like most people have no idea what to do."
+      },
+      {
+        "start": 128.91,
+        "end": 139.44,
+        "text": "Even if they feel urgency right now, they don't know what they're supposed to do because a lot of the conversation still is really charged and really emotional, really, you know, extreme."
+      },
+      {
+        "start": 139.44,
+        "end": 142.53,
+        "text": "Jobs are going to go, jobs are going to stay."
+      },
+      {
+        "start": 142.53,
+        "end": 144.99,
+        "text": "But it's almost always about AI and AI alone."
+      },
+      {
+        "start": 144.99,
+        "end": 151.26,
+        "text": "And the real question here isn't whether AI is going to take away your job or not, it’s how it's going to change a job for us humans."
+      },
+      {
+        "start": 151.26,
+        "end": 156.99,
+        "text": "And so what I'm hoping is the moment is ripe now for us to really focus on the mind, not the machine."
+      },
+      {
+        "start": 156.99,
+        "end": 161.25,
+        "text": "And what does human capability look like as we enter this new era for the economy?"
+      },
+      {
+        "start": 161.25,
+        "end": 161.48,
+        "text": "Right."
+      },
+      {
+        "start": 161.48,
+        "end": 167.71,
+        "text": "This feels like it has been sort of the gradual shift to say, okay, the machines can do all of this amazing stuff."
+      },
+      {
+        "start": 167.71,
+        "end": 169.19,
+        "text": "We'll see if that plays out."
+      },
+      {
+        "start": 169.19,
+        "end": 170.63,
+        "text": "But where do humans fit in?"
+      },
+      {
+        "start": 170.8,
+        "end": 174.63,
+        "text": "Talk about I mean, you you have described this book as explicitly pro-human."
+      },
+      {
+        "start": 174.63,
+        "end": 175.13,
+        "text": "Yes."
+      },
+      {
+        "start": 175.13,
+        "end": 180.04,
+        "text": "So give us just sort of the overview of, of what you're trying to get across with that."
+      },
+      {
+        "start": 180.04,
+        "end": 184.52,
+        "text": "You know, the journey of the book starts when when the AI conversation really starts."
+      },
+      {
+        "start": 184.52,
+        "end": 191.1,
+        "text": "And there was a lot of fear that humans were done at work, that AI was going to beat us at everything, and we just need to call it."
+      },
+      {
+        "start": 191.1,
+        "end": 200.98,
+        "text": "And at the time, I remember both Ryan and I recognizing that didn't feel right for a bunch of reasons, one of which was that prior to AI becoming mainstream, we were both these skills-first thinkers."
+      },
+      {
+        "start": 200.98,
+        "end": 206.04,
+        "text": "We recognized just complete inefficiencies in the labor market of how we matched talent and opportunity."
+      },
+      {
+        "start": 206.04,
+        "end": 213.1,
+        "text": "So that's a pro-human view, because it starts with a sense that humans have never been able to bring all of who we are to the arena of work."
+      },
+      {
+        "start": 213.1,
+        "end": 217.08,
+        "text": "So the idea that AI could replace everything we could do seemed off."
+      },
+      {
+        "start": 217.08,
+        "end": 223.16,
+        "text": "But then the more you actually investigate and report on human capability, it's kind of mind blowing."
+      },
+      {
+        "start": 223.16,
+        "end": 229.32,
+        "text": "I mean, the first thing you realize is the human brain is actually the most sophisticated, complex object in the known universe."
+      },
+      {
+        "start": 229.32,
+        "end": 236.12,
+        "text": "So while we're talking about artificial intelligence and what's coming, we're sleeping on this story of human intelligence and what's been."
+      },
+      {
+        "start": 236.12,
+        "end": 240.97,
+        "text": "You then start to realize, wait, everything we know about work and economic growth is fairly recent."
+      },
+      {
+        "start": 240.97,
+        "end": 244.86,
+        "text": "We think of it as the natural world, how we work, how companies work."
+      },
+      {
+        "start": 244.86,
+        "end": 248.08,
+        "text": "It's all from the industrial age, which is just a couple of centuries old."
+      },
+      {
+        "start": 248.08,
+        "end": 254.6,
+        "text": "The brain we have is actually like 40,000 years old or or older in terms of the ability for the complex thought we have."
+      },
+      {
+        "start": 254.6,
+        "end": 260.34,
+        "text": "So the brain is pretty incredible, the changes to work that we feel are entrenched and permanent are recent."
+      },
+      {
+        "start": 260.34,
+        "end": 265.95,
+        "text": "If you think about the industrial revolution, it's been entirely about the speed and scale of production of goods and services."
+      },
+      {
+        "start": 265.95,
+        "end": 268.89,
+        "text": "And so everything was about efficiency, efficiency, efficiency."
+      },
+      {
+        "start": 268.89,
+        "end": 279.1,
+        "text": "So naturally, as humans go from 1 billion to 8 billion and everything is getting bigger in that period, at work we become machine-like, we become efficiency machines."
+      },
+      {
+        "start": 279.1,
+        "end": 288.99,
+        "text": "And we do that not just in the early parts of the industrial age on the assembly line, but we do that across the knowledge economy, across like everything we're doing on laptops."
+      },
+      {
+        "start": 288.99,
+        "end": 292.07,
+        "text": "More, better, faster, more, better, faster, more, better, faster."
+      },
+      {
+        "start": 292.07,
+        "end": 302.23,
+        "text": "And here comes this technology that is going to out efficiency us, and we're terrified because we understand our role as humans at work to be these machine like efficiency agents."
+      },
+      {
+        "start": 302.23,
+        "end": 324.27,
+        "text": "And so when you realize AI is going to take away what work has become over the past few centuries, but open up an arena for what work could become based on the millennia of human capability that's about adapting, about resilience, about being entrepreneurial, imagining, and inventing things that have never existed before, telling stories that bind us together as communities and countries and companies."
+      },
+      {
+        "start": 324.27,
+        "end": 331.08,
+        "text": "And you imagine that happening at a micro or macro level for more and more humans than ever before."
+      },
+      {
+        "start": 331.08,
+        "end": 333.81,
+        "text": "That's when you start to get excited about what's coming."
+      },
+      {
+        "start": 333.81,
+        "end": 345.62,
+        "text": "And that was really kind of the impetus of the book, was to remind us all how great we are and how great the human brain is, and how if we make the choices now to get to better, we can get to better."
+      },
+      {
+        "start": 345.62,
+        "end": 345.88,
+        "text": "Right."
+      },
+      {
+        "start": 345.88,
+        "end": 349.84,
+        "text": "But the other thing you said is that nothing in this moment is predetermined."
+      },
+      {
+        "start": 349.84,
+        "end": 354.47,
+        "text": "It's all available to us, which is both scary and exciting."
+      },
+      {
+        "start": 354.47,
+        "end": 357.41,
+        "text": "Tell us about like, let's talk about the exciting part of that."
+      },
+      {
+        "start": 357.41,
+        "end": 363.2,
+        "text": "Yeah, well, I think it's important to, um, underscore just that critical part that we have agency."
+      },
+      {
+        "start": 363.2,
+        "end": 374.79,
+        "text": "Everyone out there who is making a prediction, either a utopian or dystopian one, um, it's often coming across as if it's already been figured out, and we're just along for the ride, and we just don't know which ride we're on yet."
+      },
+      {
+        "start": 374.79,
+        "end": 376.38,
+        "text": "Are we going to better or worse?"
+      },
+      {
+        "start": 376.38,
+        "end": 395.08,
+        "text": "But if you think about, again, humans, if you start from just a perspective that is pro-human, curious about humans and how humanity has worked across the ages, stories are critical because stories allow us to again unite around this new vision of a new idea for a nation state, or the monetary order, or any of the things that sort of organize us."
+      },
+      {
+        "start": 395.08,
+        "end": 407.42,
+        "text": "And in the book, we talk about a quote from Kevin Scott, Microsoft's CTO, who said early in this whole AI conversation, look, this is an incredible and incredibly powerful technology."
+      },
+      {
+        "start": 407.42,
+        "end": 411.79,
+        "text": "And it's new and it's different and we have to let it play out and it's going to do big things."
+      },
+      {
+        "start": 411.79,
+        "end": 414.48,
+        "text": "But where it goes really comes down to the story we tell right now."
+      },
+      {
+        "start": 414.48,
+        "end": 418.82,
+        "text": "If we tell a story that it's going to lead to worse, it's more likely that it's going to lead to worse."
+      },
+      {
+        "start": 418.82,
+        "end": 422.91,
+        "text": "If we tell a story that it's going to lead to better, it's more likely that it's going to lead to better."
+      },
+      {
+        "start": 422.91,
+        "end": 432.51,
+        "text": "And so it's really important all of us recognize that it individual level, at an organizational level, at a community level, at a societal level, this is undecided."
+      },
+      {
+        "start": 432.51,
+        "end": 436.89,
+        "text": "And we decide, not technology, we decide where it goes."
+      },
+      {
+        "start": 436.89,
+        "end": 442.34,
+        "text": "And if you start with that place, you immediately start to have greater agency over this moment."
+      },
+      {
+        "start": 442.34,
+        "end": 445.49,
+        "text": "Let's take let's take sort of each of those in turn."
+      },
+      {
+        "start": 445.49,
+        "end": 457.66,
+        "text": "Because in the book, you know, if we start at the individual level, one of the things you talk about, that is a place where I would imagine that a lot of people feel the least agency, they're maybe inside a company, they are, you know, being pushed for greater productivity."
+      },
+      {
+        "start": 457.66,
+        "end": 467.8,
+        "text": "But you're saying that we are moving toward a future where you're saying that we are moving toward a future where the individual is defined by something you call their their \"only-ness\", and that there's a real opportunity to not be part of the machine."
+      },
+      {
+        "start": 467.84,
+        "end": 475.9,
+        "text": "Yeah, um, so much gets simpler when you just sort of do a before and after, and the before is the industrial age and the after is what's coming."
+      },
+      {
+        "start": 475.9,
+        "end": 486.28,
+        "text": "And in the industrial age in org charts where we were all our job title more than anything else, and we were just from the assembly line, interchangeable human parts of a machinery that kept going."
+      },
+      {
+        "start": 486.28,
+        "end": 495.86,
+        "text": "But even in the knowledge work and just the fact that we were siloed in functions and we were just supposed to do what we were supposed to do against a job description that multiple people were supposed to conform to."
+      },
+      {
+        "start": 495.86,
+        "end": 497.23,
+        "text": "But you have OKRs and KPIs."
+      },
+      {
+        "start": 497.23,
+        "end": 498.39,
+        "text": "Why are you not happy?"
+      },
+      {
+        "start": 498.39,
+        "end": 498.84,
+        "text": "Yes, yes."
+      },
+      {
+        "start": 498.84,
+        "end": 502.61,
+        "text": "And where work is going is really only-ness, this idea that nobody beats you at being you."
+      },
+      {
+        "start": 502.61,
+        "end": 509.01,
+        "text": "So the job I have now doesn't make sense in any sort of linear progression from the job titles I've had before."
+      },
+      {
+        "start": 509.01,
+        "end": 513.85,
+        "text": "But across every job, explanatory storytelling has been a passion, like what we're doing now."
+      },
+      {
+        "start": 513.85,
+        "end": 516.29,
+        "text": "How do we make the complex, simple and approachable for people?"
+      },
+      {
+        "start": 516.29,
+        "end": 519.23,
+        "text": "Midway through my career, it wasn't enough to tell the story."
+      },
+      {
+        "start": 519.23,
+        "end": 522.03,
+        "text": "I wanted to actually get something mobilized around it."
+      },
+      {
+        "start": 522.03,
+        "end": 524.27,
+        "text": "So coalition building becomes a skill set."
+      },
+      {
+        "start": 524.27,
+        "end": 530.01,
+        "text": "Networks are key to that, but that's as much business development and growth as it is political campaigns and policy advocacy."
+      },
+      {
+        "start": 530.01,
+        "end": 538.64,
+        "text": "And then about a decade ago, for a bunch of reasons, economic opportunity became this issue that I just decided to pledge fidelity to for the rest of my life."
+      },
+      {
+        "start": 538.64,
+        "end": 548.63,
+        "text": "So now if you combine those three things, explanatory storytelling, you know, coalition building, and an expertise on economic opportunity, this job, this moment, this place, it all makes a ton of sense."
+      },
+      {
+        "start": 548.63,
+        "end": 551.51,
+        "text": "That's a nobody beats me at being me sort of story."
+      },
+      {
+        "start": 551.51,
+        "end": 553.47,
+        "text": "Everyone has some version of that in them."
+      },
+      {
+        "start": 553.47,
+        "end": 562.33,
+        "text": "If everyone puts aside their job titles and just thinks about what are the curiosities that keep them up at night or wake them up in the morning, what are the capabilities that they want to get better at?"
+      },
+      {
+        "start": 562.33,
+        "end": 566.05,
+        "text": "How does that attach to the place they work and the job they do?"
+      },
+      {
+        "start": 566.05,
+        "end": 576.99,
+        "text": "Um, you will get to build to more personalized work, to work that feels more of you, by you, for you, than any other generation of humans have ever been able to do before."
+      },
+      {
+        "start": 576.99,
+        "end": 584.21,
+        "text": "It's scary, that first step, because what I'm asking you to do is to think like an entrepreneur, and to realize that you don't have to launch a business to think like an entrepreneur."
+      },
+      {
+        "start": 584.21,
+        "end": 589.31,
+        "text": "You can just decide today at work, whatever project is in front of you, you're going to do something different with it."
+      },
+      {
+        "start": 589.31,
+        "end": 596.49,
+        "text": "You're going to do is we have a definition of entrepreneurialism in the book from someone at MIT, you're going to do more than reasonable with the resources you have."
+      },
+      {
+        "start": 596.49,
+        "end": 600.38,
+        "text": "Any of us can do that with anything we're doing today, and that's how it starts."
+      },
+      {
+        "start": 600.38,
+        "end": 602.06,
+        "text": "And that first step is the hardest."
+      },
+      {
+        "start": 602.06,
+        "end": 619.58,
+        "text": "But the more you do that, and the more you realize the tools can help you with it, the more you realize your own lived and learned experience is going to come to the center of it, it gets easier over time, but it's almost like the first break, you've got to move from the old world to the new world, like you've got to really get this is different, this is new, but start building towards better."
+      },
+      {
+        "start": 619.58,
+        "end": 622.69,
+        "text": "So that, if that's the individual part, then we get to the company part."
+      },
+      {
+        "start": 622.69,
+        "end": 623.01,
+        "text": "Yeah."
+      },
+      {
+        "start": 623.01,
+        "end": 630.59,
+        "text": "And you, it sounds like, have been lucky enough to end up at places that were willing to acknowledge that skills are sometimes more important than resume."
+      },
+      {
+        "start": 630.59,
+        "end": 630.83,
+        "text": "Yeah."
+      },
+      {
+        "start": 630.83,
+        "end": 632.13,
+        "text": "Put together a title."
+      },
+      {
+        "start": 632.13,
+        "end": 638.96,
+        "text": "Um, we are asking companies to reorganize around and reward that behavior."
+      },
+      {
+        "start": 638.96,
+        "end": 648.38,
+        "text": "So what can leaders do to actually implement that, even if it means, like a little what feels like a step away from that productivity and that efficiency oh no."
+      },
+      {
+        "start": 648.38,
+        "end": 648.68,
+        "text": "Yeah."
+      },
+      {
+        "start": 648.68,
+        "end": 655.7,
+        "text": "One thing I'm proud of in the book is that we are radically empathetic to just the human condition and what it is for us as humans to process this moment."
+      },
+      {
+        "start": 655.7,
+        "end": 661.79,
+        "text": "For individuals, our brain is wired to fear change and it's not wired to get exponential change."
+      },
+      {
+        "start": 661.79,
+        "end": 663.17,
+        "text": "Well, this is exponential change."
+      },
+      {
+        "start": 663.17,
+        "end": 666.99,
+        "text": "So you can get why a lot of us are trying to hunker down or stand back."
+      },
+      {
+        "start": 666.99,
+        "end": 668.63,
+        "text": "That's understandable, but unhelpful."
+      },
+      {
+        "start": 668.63,
+        "end": 672.75,
+        "text": "And for leaders, there's a lot of fear of getting it wrong."
+      },
+      {
+        "start": 672.75,
+        "end": 686.45,
+        "text": "I mean, even leaders who get that things need to change, especially the bigger the company you are, the more you have investors in the market looking at quarterly returns, you don't want to do the new thing in a wrong way that leads to something breaking that shouldn't."
+      },
+      {
+        "start": 686.45,
+        "end": 691.43,
+        "text": "Even though you need to do a new thing in a new way, that's going to lead to growth down the line."
+      },
+      {
+        "start": 691.43,
+        "end": 692.24,
+        "text": "So it's really hard."
+      },
+      {
+        "start": 692.24,
+        "end": 695.26,
+        "text": "I mean, this is like hard in a way that's never been true before."
+      },
+      {
+        "start": 695.26,
+        "end": 699.5,
+        "text": "And that, by the way, I think if you're a leader is is at the crux of the hardness."
+      },
+      {
+        "start": 699.5,
+        "end": 701.34,
+        "text": "There are these two truths that are inconsistent."
+      },
+      {
+        "start": 701.34,
+        "end": 704.59,
+        "text": "One truth I'll tell you is that we've been here before."
+      },
+      {
+        "start": 704.59,
+        "end": 706.23,
+        "text": "There's an S-curve to technology adoption."
+      },
+      {
+        "start": 706.23,
+        "end": 707.6,
+        "text": "Look at the steam engine."
+      },
+      {
+        "start": 707.6,
+        "end": 708.41,
+        "text": "Look at electricity."
+      },
+      {
+        "start": 708.41,
+        "end": 709.48,
+        "text": "Look at the internet."
+      },
+      {
+        "start": 709.48,
+        "end": 714.7,
+        "text": "The fed will tell you at the other end of all this disruption, we always end up with a net gain in employment."
+      },
+      {
+        "start": 714.7,
+        "end": 715.8,
+        "text": "New jobs get created."
+      },
+      {
+        "start": 715.8,
+        "end": 717.35,
+        "text": "New job categories get created."
+      },
+      {
+        "start": 717.35,
+        "end": 722.96,
+        "text": "We know from \"Innovators Dilemma\" and all sorts of great books out there that you've got to, like, think different."
+      },
+      {
+        "start": 722.96,
+        "end": 724.97,
+        "text": "But we've been here before."
+      },
+      {
+        "start": 724.97,
+        "end": 728.18,
+        "text": "Um, the other truth that I'm going to tell you is we've never been here before."
+      },
+      {
+        "start": 728.18,
+        "end": 731.01,
+        "text": "This technology is completely different than anything that's come before."
+      },
+      {
+        "start": 731.01,
+        "end": 739.81,
+        "text": "But the upside of that is that this is the first time we can flip the script on technology since the industrial age, which is technology serving us rather than us serving it."
+      },
+      {
+        "start": 739.81,
+        "end": 745.52,
+        "text": "The technology is going to aid your workers to learn new things and build new things in ways that have never happened before."
+      },
+      {
+        "start": 745.52,
+        "end": 746.89,
+        "text": "So it's really hard."
+      },
+      {
+        "start": 746.89,
+        "end": 751.1,
+        "text": "It's hard because there's a bunch of contradictory stuff that you've got to manage through."
+      },
+      {
+        "start": 751.1,
+        "end": 758.86,
+        "text": "If you're a leader, I'd say there are three really basic things as an individual you need to do, and then three things as an organization that we talk about in the book."
+      },
+      {
+        "start": 758.86,
+        "end": 761.07,
+        "text": "As an individual, it starts with intent."
+      },
+      {
+        "start": 761.07,
+        "end": 765.35,
+        "text": "I mean, everything we're talking about right now is biased towards being pro-human."
+      },
+      {
+        "start": 765.35,
+        "end": 770.52,
+        "text": "It starts with a not what's left, but what's possible for humans in the age of AI."
+      },
+      {
+        "start": 770.52,
+        "end": 773,
+        "text": "That's really important, and you've got to get there authentically."
+      },
+      {
+        "start": 773,
+        "end": 778.86,
+        "text": "And so that starts with being pro-you, seeing your own future play out, seeing how you're going to have more and better things to do."
+      },
+      {
+        "start": 778.86,
+        "end": 782.5,
+        "text": "But you've got to start with that pro-human intent and pro-people intent."
+      },
+      {
+        "start": 782.5,
+        "end": 785.58,
+        "text": "Once you have that, the second one's pretty easy."
+      },
+      {
+        "start": 785.58,
+        "end": 786.84,
+        "text": "You got to remember you have agency."
+      },
+      {
+        "start": 786.84,
+        "end": 792.65,
+        "text": "I was talking to a business leader recently who is of this mindset and was talking to a peer."
+      },
+      {
+        "start": 792.65,
+        "end": 795.93,
+        "text": "The peer was sort of gaming out all of these really fearful scenarios."
+      },
+      {
+        "start": 795.93,
+        "end": 810.3,
+        "text": "If we're going to end up with a finance department that has one person or a marketing department that has one person, and the person I'm speaking to said to that person, you know, I just want to remind you, like from here to there, you're going to make decisions, like you will make decisions that lead to whatever the outcome is."
+      },
+      {
+        "start": 810.3,
+        "end": 817.4,
+        "text": "You have agency and leaders, especially those who are shaping the systems of work, employment, entrepreneurship, education."
+      },
+      {
+        "start": 817.4,
+        "end": 826.2,
+        "text": "Those choices matter a lot, because you will choose how these systems respond, and those systems are are the systems within which we live as individuals."
+      },
+      {
+        "start": 826.2,
+        "end": 833.81,
+        "text": "There's only so much you could do as an individual if the company you're in or the economy you're in or the school you're in isn't adapting, so you have agency."
+      },
+      {
+        "start": 833.81,
+        "end": 834.99,
+        "text": "Never forget that."
+      },
+      {
+        "start": 834.99,
+        "end": 837.46,
+        "text": "And that agency is going to play out choice by choice."
+      },
+      {
+        "start": 837.46,
+        "end": 838.97,
+        "text": "And the last thing is urgency."
+      },
+      {
+        "start": 838.97,
+        "end": 842.81,
+        "text": "Um, don't worry if you feel behind everyone who's in the game is feeling behind."
+      },
+      {
+        "start": 842.81,
+        "end": 849.56,
+        "text": "Um, but get worried if you haven't started, if you aren't actually starting to think differently, um, starting to plan differently."
+      },
+      {
+        "start": 849.56,
+        "end": 850.71,
+        "text": "this is not incrementalism."
+      },
+      {
+        "start": 850.71,
+        "end": 852.43,
+        "text": "is not just about AI adoption."
+      },
+      {
+        "start": 852.43,
+        "end": 853.1,
+        "text": "This is transformation."
+      },
+      {
+        "start": 853.1,
+        "end": 855.25,
+        "text": "This is about a whole new way of work."
+      },
+      {
+        "start": 855.25,
+        "end": 858.32,
+        "text": "And we can get into that kind of the shifts that companies need to do."
+      },
+      {
+        "start": 858.32,
+        "end": 859.21,
+        "text": "We definitely will."
+      },
+      {
+        "start": 859.21,
+        "end": 870.12,
+        "text": "Um, but one of those shifts is, is certainly, I think, as you're pointing out, the evolution of the technology itself has been interesting to watch."
+      },
+      {
+        "start": 870.12,
+        "end": 880.42,
+        "text": "And one of the things you point out in the book is that we're sort of going to get to a point where, like, you can't just bolt on AI to an old system, and if you only use AI, it's effectively a commodity product, right?"
+      },
+      {
+        "start": 880.46,
+        "end": 884.88,
+        "text": "Everybody recognizes now what is only AI without a human on top."
+      },
+      {
+        "start": 884.88,
+        "end": 894.31,
+        "text": "So talk about the sort of differentiating traits of the companies that because some look some companies this is the history of business, are not going to make this turn."
+      },
+      {
+        "start": 894.31,
+        "end": 894.69,
+        "text": "Yeah."
+      },
+      {
+        "start": 894.69,
+        "end": 914.12,
+        "text": "Um, we have a chapter in the book about companies, and we open every chapter with a story, and we start the chapter on companies with the story of electricity, and the story of a factory that represented a lot of factories at the time, that electricity comes around where they thought what they needed to do with electricity was just put it where the steam engine stuff was."
+      },
+      {
+        "start": 914.12,
+        "end": 917.92,
+        "text": "So where there was like steam power, they put electricity and changed nothing else."
+      },
+      {
+        "start": 917.92,
+        "end": 918.89,
+        "text": "And guess what?"
+      },
+      {
+        "start": 918.89,
+        "end": 921.84,
+        "text": "Productivity didn't really budge and everyone started questioning the technology."
+      },
+      {
+        "start": 921.84,
+        "end": 925.62,
+        "text": "Was this hyped like it's more reliable than steam, but I don't see any big gains."
+      },
+      {
+        "start": 925.62,
+        "end": 932.87,
+        "text": "And there were a couple of folks who recognized electricity as a completely different technology, which means we have to rebuild work around it."
+      },
+      {
+        "start": 932.87,
+        "end": 937.16,
+        "text": "So you've got to understand, this is not about just folding it in."
+      },
+      {
+        "start": 937.16,
+        "end": 940.55,
+        "text": "This is about transforming your entire way of work."
+      },
+      {
+        "start": 940.55,
+        "end": 947.87,
+        "text": "And we have a great voice in here, Conor Grennan, who says for companies, this is going to require a complete and total behavior change."
+      },
+      {
+        "start": 947.87,
+        "end": 950.77,
+        "text": "I mean, this is change management at a whole different level."
+      },
+      {
+        "start": 950.77,
+        "end": 952.75,
+        "text": "So again, we've been here before."
+      },
+      {
+        "start": 952.75,
+        "end": 954.24,
+        "text": "We know what happened with electricity."
+      },
+      {
+        "start": 954.24,
+        "end": 956.71,
+        "text": "We know what the people that lagged behind didn't do."
+      },
+      {
+        "start": 956.71,
+        "end": 959.17,
+        "text": "We know what the people that surged ahead did do."
+      },
+      {
+        "start": 959.17,
+        "end": 960.97,
+        "text": "But also, again, this is totally different."
+      },
+      {
+        "start": 960.97,
+        "end": 962.92,
+        "text": "This is a different technology than before."
+      },
+      {
+        "start": 962.92,
+        "end": 967.17,
+        "text": "And so you've got to just start testing your way into new ways of work."
+      },
+      {
+        "start": 967.17,
+        "end": 969.45,
+        "text": "The three shifts that that we've seen starting to work."
+      },
+      {
+        "start": 969.45,
+        "end": 972.37,
+        "text": "Shift one is you've got to lead by design, not command."
+      },
+      {
+        "start": 972.37,
+        "end": 977.35,
+        "text": "So the org chart, which is born of the industrial age, you just bring order, predictability, stability."
+      },
+      {
+        "start": 977.35,
+        "end": 982.06,
+        "text": "It starts actually more like a tree where it was built to build information flowing upward."
+      },
+      {
+        "start": 982.06,
+        "end": 987.07,
+        "text": "It then becomes a pyramid we're all used to, which is about accountability and decision making flowing downward."
+      },
+      {
+        "start": 987.07,
+        "end": 1000.37,
+        "text": "Um, you've now got to create an environment where innovation can flow freely, where individuals who are being entrepreneurial with these tools or with this, like new way of work, are popping up in all parts of your organization."
+      },
+      {
+        "start": 1000.37,
+        "end": 1002.24,
+        "text": "And that's happening bottom up, middle out."
+      },
+      {
+        "start": 1002.24,
+        "end": 1012.09,
+        "text": "Um, in the book, we call out Walmart, Microsoft and Citigroup as three really good examples of leaders who are building for innovation to come from all sorts of places."
+      },
+      {
+        "start": 1012.09,
+        "end": 1016.16,
+        "text": "The second is you've got to look at people for capabilities and not in categories."
+      },
+      {
+        "start": 1016.16,
+        "end": 1018.94,
+        "text": "So the silos of functional lines are really done."
+      },
+      {
+        "start": 1018.94,
+        "end": 1021.92,
+        "text": "If you're not blurring lines now, you've got to blur them quickly."
+      },
+      {
+        "start": 1021.92,
+        "end": 1037.91,
+        "text": "You've got to figure out how marketing and sales overlap, product and engineering overlap, um, even within HR and the talent function, how does someone who hires you stick with you almost like a high school guidance counselor and know where you should get deployed in an organization as projects change and different business lines emerge."
+      },
+      {
+        "start": 1037.91,
+        "end": 1045.42,
+        "text": "So you've got to start mapping all your folks by skills and then understanding that those skills need to get recombined as projects form."
+      },
+      {
+        "start": 1045.46,
+        "end": 1054.27,
+        "text": "And then the third thing is is critically important and exceptionally difficult, which is you have to develop people, not just tasks, especially as managers."
+      },
+      {
+        "start": 1054.27,
+        "end": 1058.85,
+        "text": "For so long in the industrial ages, everything is just getting bigger and it's about efficiency."
+      },
+      {
+        "start": 1058.85,
+        "end": 1067.21,
+        "text": "You got promoted by managing bigger teams and you manage bigger teams by just in better ways, making sure everyone is doing the work they were supposed to do."
+      },
+      {
+        "start": 1067.21,
+        "end": 1071.17,
+        "text": "AI again, is going to do a lot of that sort of helpful tracking of what are people doing?"
+      },
+      {
+        "start": 1071.17,
+        "end": 1072.4,
+        "text": "Is it the right stuff?"
+      },
+      {
+        "start": 1072.4,
+        "end": 1075.85,
+        "text": "Against what we're trying to do against our business roadmap, product roadmap?"
+      },
+      {
+        "start": 1075.85,
+        "end": 1078.02,
+        "text": "You've now got to coach people."
+      },
+      {
+        "start": 1078.02,
+        "end": 1082.67,
+        "text": "You've got to help people make this transition from efficiency machine to innovation engine."
+      },
+      {
+        "start": 1082.67,
+        "end": 1090.36,
+        "text": "You've got to help people develop these skills that coming out of a century of focus on IQ, our education system has underinvested in for people."
+      },
+      {
+        "start": 1090.36,
+        "end": 1091.74,
+        "text": "How do you develop curiosity?"
+      },
+      {
+        "start": 1091.74,
+        "end": 1093.67,
+        "text": "How do you understand your unique capabilities?"
+      },
+      {
+        "start": 1093.67,
+        "end": 1096.29,
+        "text": "How do you build resilience and ability to adapt?"
+      },
+      {
+        "start": 1096.29,
+        "end": 1098.09,
+        "text": "That's going to take work."
+      },
+      {
+        "start": 1098.09,
+        "end": 1103.09,
+        "text": "I mean, most workers did not grow up in environments where that was what they were taught to do or told to do."
+      },
+      {
+        "start": 1103.09,
+        "end": 1113.9,
+        "text": "I mean, there are so many workers who have done everything right to get the right grades by memorizing all the facts they needed to memorize, prove the right skills by showing their technical or analytical aptitude."
+      },
+      {
+        "start": 1113.9,
+        "end": 1120.81,
+        "text": "Get the right degree that's supposed to be that punch of a ticket into a solid career, and that's all going to change on them."
+      },
+      {
+        "start": 1120.81,
+        "end": 1127.12,
+        "text": "And so we've got to help everyone at a workforce development level do that shift, and managers are going to be critical within employers."
+      },
+      {
+        "start": 1127.12,
+        "end": 1139.24,
+        "text": "One of the things you talk about as we talk about managers and what to invest in, in terms of hiring and a company, is the five C's: creativity, curiosity, courage, compassion and communication."
+      },
+      {
+        "start": 1139.24,
+        "end": 1139.6,
+        "text": "Yeah."
+      },
+      {
+        "start": 1139.6,
+        "end": 1144.89,
+        "text": "Which one of those would you say is most underestimated in modern companies?"
+      },
+      {
+        "start": 1144.89,
+        "end": 1146.31,
+        "text": "I curiosity, okay."
+      },
+      {
+        "start": 1146.31,
+        "end": 1151.42,
+        "text": "Because you got to be so I would I would say the most important right now is curious about these tools."
+      },
+      {
+        "start": 1151.42,
+        "end": 1154.77,
+        "text": "Be curious about how it's going to change your job, your career."
+      },
+      {
+        "start": 1154.77,
+        "end": 1156.13,
+        "text": "Let that curiosity build."
+      },
+      {
+        "start": 1156.13,
+        "end": 1162.26,
+        "text": "Find whatever way you can to make it exciting, or at least less stressful to go engage with these tools."
+      },
+      {
+        "start": 1162.26,
+        "end": 1164.43,
+        "text": "Pick a project that doesn't have to do with work."
+      },
+      {
+        "start": 1164.43,
+        "end": 1169.79,
+        "text": "If that stresses you out, or pick your least exciting project you do every day as part of your work and make it that."
+      },
+      {
+        "start": 1169.79,
+        "end": 1171.54,
+        "text": "But just like, get in that zone."
+      },
+      {
+        "start": 1171.54,
+        "end": 1180.09,
+        "text": "The reason I'm hesitant to say which is the most important is, you know, this is our offering of how do we define what sits at the intersection of EQ and IQ."
+      },
+      {
+        "start": 1180.09,
+        "end": 1183.47,
+        "text": "What sits at the intersection of consciousness and conscience."
+      },
+      {
+        "start": 1183.47,
+        "end": 1194.28,
+        "text": "That is an arena of spirituality, of philosophy, of all this sort of like subjectivity, for everyone to have their own view of what is it that makes us, us as humans?"
+      },
+      {
+        "start": 1194.28,
+        "end": 1202.59,
+        "text": "But what we recognize is that coming out of a century of IQ, where we have all of these pedigree proxies for technical and analytical skills, did you work at Google?"
+      },
+      {
+        "start": 1202.59,
+        "end": 1203.48,
+        "text": "Did you go to Princeton?"
+      },
+      {
+        "start": 1203.48,
+        "end": 1204.38,
+        "text": "Do you have a CS degree?"
+      },
+      {
+        "start": 1204.38,
+        "end": 1205.44,
+        "text": "Do you have an MBA?"
+      },
+      {
+        "start": 1205.44,
+        "end": 1210.14,
+        "text": "We don't have that for the new skills that are the it skills, these human skills."
+      },
+      {
+        "start": 1210.14,
+        "end": 1211.38,
+        "text": "So we talked to neuroscientists."
+      },
+      {
+        "start": 1211.38,
+        "end": 1216.6,
+        "text": "We talked to organizational psychologists, behavioral economists, and we came up with these five C's."
+      },
+      {
+        "start": 1216.6,
+        "end": 1219.27,
+        "text": "The speechwriter in me advocated for 3 or 5."
+      },
+      {
+        "start": 1219.27,
+        "end": 1220.39,
+        "text": "That's how we'll remember."
+      },
+      {
+        "start": 1220.39,
+        "end": 1223.28,
+        "text": "But these are meant to be like individual muscles you can build."
+      },
+      {
+        "start": 1223.28,
+        "end": 1230.4,
+        "text": "And everything we know about neuroplasticity is that you can get better at all of these, and you are inherently capable, if not good at all of these as a human."
+      },
+      {
+        "start": 1230.44,
+        "end": 1233.96,
+        "text": "Then from these others build like collaboration or critical thinking."
+      },
+      {
+        "start": 1233.96,
+        "end": 1236.55,
+        "text": "Everyone's got their other C’s that they would add in."
+      },
+      {
+        "start": 1236.55,
+        "end": 1239.54,
+        "text": "I would say right now the most important is curiosity."
+      },
+      {
+        "start": 1239.54,
+        "end": 1252.13,
+        "text": "And then if I had to make a bet against the others on what's going to matter most down the line, I'd say right now creativity, because what we're sort of advising everyone to do is adapt immediately."
+      },
+      {
+        "start": 1252.13,
+        "end": 1252.71,
+        "text": "That's curiosity."
+      },
+      {
+        "start": 1252.71,
+        "end": 1253.59,
+        "text": "Just start learning."
+      },
+      {
+        "start": 1253.59,
+        "end": 1255.76,
+        "text": "Start figuring out how you're going to change stuff."
+      },
+      {
+        "start": 1255.76,
+        "end": 1258.24,
+        "text": "But over time, we're all going to have to think like an entrepreneur."
+      },
+      {
+        "start": 1258.24,
+        "end": 1259.79,
+        "text": "We're all going to have to be entrepreneurial."
+      },
+      {
+        "start": 1259.79,
+        "end": 1266.1,
+        "text": "We're going to have to like, come up with new ideas, come up with new solutions, even suggest new business lines, new workflows."
+      },
+      {
+        "start": 1266.1,
+        "end": 1268.89,
+        "text": "And to me, creativity is so core to that."
+      },
+      {
+        "start": 1268.89,
+        "end": 1273.86,
+        "text": "And we're going to encounter a belief question there too, where so many of us think creativity is a gift."
+      },
+      {
+        "start": 1273.86,
+        "end": 1277.43,
+        "text": "It's a talent some people have, a talent some people don't."
+      },
+      {
+        "start": 1277.43,
+        "end": 1278.19,
+        "text": "It's a muscle."
+      },
+      {
+        "start": 1278.19,
+        "end": 1279.44,
+        "text": "It's one that you can build."
+      },
+      {
+        "start": 1279.53,
+        "end": 1288.7,
+        "text": "In the book, we talk about, um, a psychologist who studied Mozart and Mozart for so long was seen as just having this, like, once in a forever gift of perfect pitch."
+      },
+      {
+        "start": 1288.7,
+        "end": 1294.03,
+        "text": "And yet this psychologist looked at his upbringing, and he grew up in a household with music all around him."
+      },
+      {
+        "start": 1294.03,
+        "end": 1306.13,
+        "text": "He grew up with, um, practice at an early age, hours of practice that would rival any professional by the time he's seven and marry that with data that another psychologist had done where a bunch of kids were able to learn perfect pitch, all of them."
+      },
+      {
+        "start": 1306.13,
+        "end": 1310.92,
+        "text": "All they have to do is show up and do deliberate practice every day for a period of time."
+      },
+      {
+        "start": 1310.92,
+        "end": 1319.11,
+        "text": "And so it demystifies creativity, talent as something that we can all gain if we delib- If we do deliberate practice around a skill we want to master."
+      },
+      {
+        "start": 1319.11,
+        "end": 1324.29,
+        "text": "So know that this is the beginnings of us all articulating what is, what makes us us."
+      },
+      {
+        "start": 1324.29,
+        "end": 1326.83,
+        "text": "What are the unique, you know, bits of human capability."
+      },
+      {
+        "start": 1326.83,
+        "end": 1330.69,
+        "text": "Know that if you have to pick one thing to focus on, it's curiosity."
+      },
+      {
+        "start": 1330.69,
+        "end": 1336.36,
+        "text": "But I think for all of us, starting to develop that creativity muscle will be a good long-term play."
+      },
+      {
+        "start": 1336.36,
+        "end": 1340.91,
+        "text": "The other side of that, certainly in a business context,is, is measurement."
+      },
+      {
+        "start": 1340.91,
+        "end": 1349.13,
+        "text": "And so while the compassionate and creative and curious people are happy to hear that humans are still better and can stay better and have agency."
+      },
+      {
+        "start": 1349.13,
+        "end": 1349.75,
+        "text": "It is."
+      },
+      {
+        "start": 1349.75,
+        "end": 1350.06,
+        "text": "Yeah."
+      },
+      {
+        "start": 1350.06,
+        "end": 1352.25,
+        "text": "That to me is the fuzziest part."
+      },
+      {
+        "start": 1352.25,
+        "end": 1352.57,
+        "text": "Yes."
+      },
+      {
+        "start": 1352.57,
+        "end": 1352.88,
+        "text": "Right."
+      },
+      {
+        "start": 1352.88,
+        "end": 1357.29,
+        "text": "If I am indeed, I am working on my quarterly reports."
+      },
+      {
+        "start": 1357.29,
+        "end": 1357.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 1357.66,
+        "end": 1370.8,
+        "text": "How do I design my metrics to encourage that and allow that and say to an employee who might be saying, I'm really happy to be a drone because I have 50 million hobbies outside of work, and so I'd just like to come to work and yes, do these tasks."
+      },
+      {
+        "start": 1370.8,
+        "end": 1375.27,
+        "text": "How do you say to them, yeah, you're going to be measured for for creativity now?"
+      },
+      {
+        "start": 1375.27,
+        "end": 1375.58,
+        "text": "Yeah."
+      },
+      {
+        "start": 1375.58,
+        "end": 1379.84,
+        "text": "This is, um, exciting to me as a question because there are two."
+      },
+      {
+        "start": 1379.84,
+        "end": 1394.77,
+        "text": "So if you agree with the premise that there was an old world and we're entering a new world, then it's intuitive that like old math won't work for new equations that, just like the pre-industrial age to the post-industrial age, had entirely different metrics, entirely different ways that we measured value."
+      },
+      {
+        "start": 1394.77,
+        "end": 1396.85,
+        "text": "That is going to happen again."
+      },
+      {
+        "start": 1396.85,
+        "end": 1404.51,
+        "text": "So, of course, as we're early into this paradigm shift, we're early in developing what are going to be locked formulas, locked new math, that's coming."
+      },
+      {
+        "start": 1404.51,
+        "end": 1412.47,
+        "text": "The two places I think where the math is fuzziest, for good reason, is one, how do we define, teach, train, credential, assess these human skills."
+      },
+      {
+        "start": 1412.47,
+        "end": 1413.38,
+        "text": "Like what are they?"
+      },
+      {
+        "start": 1413.38,
+        "end": 1415.33,
+        "text": "And then how do we actually measure them?"
+      },
+      {
+        "start": 1415.33,
+        "end": 1423,
+        "text": "K-12 is going to have to think about that in terms of like early education, post-secondary education, colleges are going to have to think about that."
+      },
+      {
+        "start": 1423,
+        "end": 1425.5,
+        "text": "There's some, um, let's look at history that we can learn from."
+      },
+      {
+        "start": 1425.5,
+        "end": 1434.97,
+        "text": "Like if you look at math early 19th century, it goes from this abstract field of study and it gets really practical with degrees like engineering, because employers need that practical like expertise."
+      },
+      {
+        "start": 1434.97,
+        "end": 1444.62,
+        "text": "Humanities, I think, are going to go through that now, we'll have applied humanities degrees that will attach to very specific roles, like wherever talent function goes or innovation entrepreneurialism and all that."
+      },
+      {
+        "start": 1444.62,
+        "end": 1446.4,
+        "text": "And then the other fuzzy math is this."
+      },
+      {
+        "start": 1446.4,
+        "end": 1447.92,
+        "text": "How are we going to measure GDP?"
+      },
+      {
+        "start": 1447.92,
+        "end": 1450.92,
+        "text": "How are we going to measure is your workforce doing everything right?"
+      },
+      {
+        "start": 1450.92,
+        "end": 1453.68,
+        "text": "Is every level of your workforce doing everything right?"
+      },
+      {
+        "start": 1453.68,
+        "end": 1458.46,
+        "text": "Conceptually, this is all going, if you put the mind at the center of work, not the machine, to kind of innovation."
+      },
+      {
+        "start": 1458.46,
+        "end": 1461.03,
+        "text": "So I would say right now we're looking at inputs."
+      },
+      {
+        "start": 1461.03,
+        "end": 1462.87,
+        "text": "AI adoption is like table stakes."
+      },
+      {
+        "start": 1462.87,
+        "end": 1465.78,
+        "text": "Right now AI adoption is lower than it should be everywhere."
+      },
+      {
+        "start": 1465.78,
+        "end": 1468.62,
+        "text": "And it is more scattered than it should be everywhere."
+      },
+      {
+        "start": 1468.62,
+        "end": 1471.37,
+        "text": "People are still bring your own AI to work."
+      },
+      {
+        "start": 1471.37,
+        "end": 1472.81,
+        "text": "People are using multiple tools."
+      },
+      {
+        "start": 1472.81,
+        "end": 1474.26,
+        "text": "They're using it for multiple reasons."
+      },
+      {
+        "start": 1474.26,
+        "end": 1475.1,
+        "text": "We don't have enough."
+      },
+      {
+        "start": 1475.1,
+        "end": 1476.22,
+        "text": "Data is all in one place."
+      },
+      {
+        "start": 1476.22,
+        "end": 1477.93,
+        "text": "This is what we're going to use."
+      },
+      {
+        "start": 1477.93,
+        "end": 1480.87,
+        "text": "Um, you know, that's not existing as it should be."
+      },
+      {
+        "start": 1480.87,
+        "end": 1485.61,
+        "text": "You look at countries or societies and AI adoption is just generally lower everywhere than it should be."
+      },
+      {
+        "start": 1485.61,
+        "end": 1489.27,
+        "text": "Then you're going to start to look for new work, new job titles, new workflows."
+      },
+      {
+        "start": 1489.27,
+        "end": 1491.26,
+        "text": "My job title is a good example."
+      },
+      {
+        "start": 1491.26,
+        "end": 1497.45,
+        "text": "You're starting to see in some places, HR and tech merge into a chief tech and HR officer, which is interesting."
+      },
+      {
+        "start": 1497.45,
+        "end": 1502.31,
+        "text": "So that's where you start to see the signals of sort of a work chart emerging, a new way of organizing work."
+      },
+      {
+        "start": 1502.31,
+        "end": 1508.34,
+        "text": "Ultimately, it's all going to be growth that comes, I think, from innovation more than efficiency."
+      },
+      {
+        "start": 1508.34,
+        "end": 1516.6,
+        "text": "So new ideas leading to new business lines like agility to adjust as a as a new idea like starts to scale but needs to pivot."
+      },
+      {
+        "start": 1516.64,
+        "end": 1524.29,
+        "text": "The simplest way to define it is like we will all have to be more entrepreneurial at work, and every company will have to be more like a startup in how they operate."
+      },
+      {
+        "start": 1524.29,
+        "end": 1529.56,
+        "text": "And ultimately that will be judged by the same thing that we judge companies now, which is, are you growing?"
+      },
+      {
+        "start": 1529.56,
+        "end": 1530.66,
+        "text": "Are you growing fast enough?"
+      },
+      {
+        "start": 1530.66,
+        "end": 1535.29,
+        "text": "Are you finding products that customers value and are they willing to pay for those products?"
+      },
+      {
+        "start": 1535.29,
+        "end": 1541.3,
+        "text": "But I think at the other end of this, for individuals, what I would focus on right now is your work product."
+      },
+      {
+        "start": 1541.3,
+        "end": 1543.02,
+        "text": "Your work product is your new resume."
+      },
+      {
+        "start": 1543.02,
+        "end": 1545.19,
+        "text": "Like, yes, you're going to be asked, what did you work on?"
+      },
+      {
+        "start": 1545.19,
+        "end": 1546.24,
+        "text": "What did you do every quarter?"
+      },
+      {
+        "start": 1546.24,
+        "end": 1546.65,
+        "text": "Every half?"
+      },
+      {
+        "start": 1546.65,
+        "end": 1557.69,
+        "text": "Your best answer is going to be, I can explain to you very specifically how I was part of this thing that happened that was a big new thing for the company, or that went at something in a new way that led to new results, better results."
+      },
+      {
+        "start": 1557.69,
+        "end": 1564.98,
+        "text": "And let me tell you the story of how that worked and what my fingerprints are, because that's how you're going to show resiliency as a badge, curiosity as a badge."
+      },
+      {
+        "start": 1564.98,
+        "end": 1566.66,
+        "text": "It's all going to be work product."
+      },
+      {
+        "start": 1566.66,
+        "end": 1569.06,
+        "text": "The same is kind of true for companies."
+      },
+      {
+        "start": 1569.06,
+        "end": 1570.69,
+        "text": "It's all going to be show, don't tell."
+      },
+      {
+        "start": 1570.74,
+        "end": 1572.78,
+        "text": "It's going to be show me your new business line."
+      },
+      {
+        "start": 1572.78,
+        "end": 1573.71,
+        "text": "Show me your new thinking."
+      },
+      {
+        "start": 1573.71,
+        "end": 1579.63,
+        "text": "Show me the new ways that you're organizing growth or the new ways that you're pivoting and adapting as the market changes around you."
+      },
+      {
+        "start": 1579.63,
+        "end": 1583.37,
+        "text": "Change isn't going anywhere, and it's never going to be as slow as it is now."
+      },
+      {
+        "start": 1583.37,
+        "end": 1586.04,
+        "text": "So you've got to be able to deliver against that change."
+      },
+      {
+        "start": 1586.04,
+        "end": 1588.38,
+        "text": "So it's kind of work product for both."
+      },
+      {
+        "start": 1588.38,
+        "end": 1596.69,
+        "text": "I'll end with just the metric I'm most excited about over time for societies as a pro-human human, which is going to be new business growth."
+      },
+      {
+        "start": 1596.69,
+        "end": 1596.96,
+        "text": "Yeah."
+      },
+      {
+        "start": 1596.96,
+        "end": 1601.89,
+        "text": "Like ultimately if you look right now, it's sort of who gets to win in the global economy."
+      },
+      {
+        "start": 1601.89,
+        "end": 1610.15,
+        "text": "It's still out of the industrial age about which countries are set up for speed, scale of production of goods and services, and of new kinds of goods and services."
+      },
+      {
+        "start": 1610.15,
+        "end": 1634.97,
+        "text": "If you map the world around innovation, you're now looking for sort of this sweet spot in a country where there's both support for people to be entrepreneurial, to launch businesses, whether that's a startup or a small business, that requires a certain level of community support, of policy support, but then also who has the wherewithal to go be resilient and adaptive, and who's got that hustle and drive to go try new things and test new boundaries?"
+      },
+      {
+        "start": 1634.97,
+        "end": 1638.94,
+        "text": "And that's cultural as much as it is, you know, structural."
+      },
+      {
+        "start": 1638.94,
+        "end": 1641.25,
+        "text": "And that's I think, where the game is going."
+      },
+      {
+        "start": 1641.25,
+        "end": 1663.24,
+        "text": "Who's got the support in place and the populations in place to just go do a bunch of innovative things, because at the end of the day, and I think Jensen at Nvidia has this line, like, we're not going to run out of jobs unless we run out of ideas, and anyone that wants to sort of debate this, we'd have to start with, do we think that humans have come up with every idea possible in in the business growth that we've seen to date."
+      },
+      {
+        "start": 1663.24,
+        "end": 1670.93,
+        "text": "And I just argue, no, that a lot of that has been built around consumer convenience and enterprise production, because a lot of that math made sense in the industrial age."
+      },
+      {
+        "start": 1670.93,
+        "end": 1678.16,
+        "text": "But there are any number of arenas, including societally beneficial arenas, from health to climate, that is just waiting for an explosion of innovation."
+      },
+      {
+        "start": 1678.16,
+        "end": 1685.7,
+        "text": "And now we have this tool that not only lowers the barrier to expertise and knowledge, but also lowers the barriers to entrepreneurialism and innovation."
+      },
+      {
+        "start": 1685.7,
+        "end": 1693.95,
+        "text": "You can learn more about something you're passionate about and build new things today, right now, in an hour."
+      },
+      {
+        "start": 1693.95,
+        "end": 1697.53,
+        "text": "And I feel like that gets us to sort of the last on the list, right?"
+      },
+      {
+        "start": 1697.53,
+        "end": 1711.92,
+        "text": "If we went from individual individuals to companies to really then communities in society, what are the societal because you also have worked in policy, the, the support that says we are not going to leave you behind."
+      },
+      {
+        "start": 1711.92,
+        "end": 1712.21,
+        "text": "Yeah."
+      },
+      {
+        "start": 1712.21,
+        "end": 1721.47,
+        "text": "And we have in the book some nonprofit leaders who are clear eyed about the challenge, but wide eyed about the opportunity for what AI can represent."
+      },
+      {
+        "start": 1721.47,
+        "end": 1724.76,
+        "text": "So I always start when we think about our vision at LinkedIn."
+      },
+      {
+        "start": 1724.76,
+        "end": 1728.89,
+        "text": "Create economic opportunity for every member, every member of the global workforce."
+      },
+      {
+        "start": 1728.89,
+        "end": 1732.11,
+        "text": "First I start with let me tell you how broken things are now."
+      },
+      {
+        "start": 1732.11,
+        "end": 1740.14,
+        "text": "So the way the labor market works, it's one of the least efficient, least, um, uh, dynamic, least transparent markets humans have ever created."
+      },
+      {
+        "start": 1740.14,
+        "end": 1742.82,
+        "text": "Most people are in a job based on guesswork."
+      },
+      {
+        "start": 1742.82,
+        "end": 1743.41,
+        "text": "Pedigree signals."
+      },
+      {
+        "start": 1743.41,
+        "end": 1744.33,
+        "text": "You worked at the right place."
+      },
+      {
+        "start": 1744.33,
+        "end": 1745.7,
+        "text": "You went to the right school."
+      },
+      {
+        "start": 1745.7,
+        "end": 1747.22,
+        "text": "I think you'll work here."
+      },
+      {
+        "start": 1747.22,
+        "end": 1748.22,
+        "text": "Are you overqualified?"
+      },
+      {
+        "start": 1748.22,
+        "end": 1748.61,
+        "text": "Underqualified?"
+      },
+      {
+        "start": 1748.61,
+        "end": 1749.78,
+        "text": "You don't know."
+      },
+      {
+        "start": 1749.78,
+        "end": 1751.06,
+        "text": "Your boss doesn't know."
+      },
+      {
+        "start": 1751.06,
+        "end": 1752.26,
+        "text": "It's all just guesswork."
+      },
+      {
+        "start": 1752.26,
+        "end": 1755.27,
+        "text": "So start from a place like we haven't done well to date."
+      },
+      {
+        "start": 1755.27,
+        "end": 1770.83,
+        "text": "Um, the thing I would, I would advise us all to do to get to better for all is one, recognize the opportunities of this moment, um, to shift not just what technology does in terms of it serving us rather than us serving it, but how these disruptions play out."
+      },
+      {
+        "start": 1770.83,
+        "end": 1775.11,
+        "text": "Every other moment has been pretty much top down over years."
+      },
+      {
+        "start": 1775.11,
+        "end": 1783.9,
+        "text": "Every one of these general purpose technologies come, and the people who sit up top sort of think about it, figure stuff out, decide how it's going to change everything."
+      },
+      {
+        "start": 1783.9,
+        "end": 1788.35,
+        "text": "And by the time it hits you as a worker, everything's been figured out for you."
+      },
+      {
+        "start": 1788.35,
+        "end": 1791.25,
+        "text": "And the worse off you are, the least you're thought about."
+      },
+      {
+        "start": 1791.25,
+        "end": 1797.5,
+        "text": "And so the last you are to be part of it and everything again, is just figured out or not for you, and you're now blocked out of opportunity."
+      },
+      {
+        "start": 1797.71,
+        "end": 1805.78,
+        "text": "This moment is playing out bottoms up, middle out, overnight because these tools are emerging for us as consumers, as alongside, for us, as workers."
+      },
+      {
+        "start": 1805.78,
+        "end": 1809.56,
+        "text": "So all of us have this moment where we get to go first."
+      },
+      {
+        "start": 1809.56,
+        "end": 1815.4,
+        "text": "Now, if you want to make sure no one gets left behind, there are two things that you have to make sure happen for those who traditionally get left behind."
+      },
+      {
+        "start": 1815.4,
+        "end": 1817.82,
+        "text": "One, you have to make sure they know what's going on."
+      },
+      {
+        "start": 1817.82,
+        "end": 1825.11,
+        "text": "And that's what this book is meant to be, you know, first and foremost, just radically transparent storytelling of what's happening."
+      },
+      {
+        "start": 1825.11,
+        "end": 1831.59,
+        "text": "What happens if you don't have that I'm an example of, I'm a child of immigrants who didn't really get compound interest until like a few years ago."
+      },
+      {
+        "start": 1831.59,
+        "end": 1838.64,
+        "text": "And early in my career, I had a bunch of savings that could have gone into the market that went into like high interest savings."
+      },
+      {
+        "start": 1838.64,
+        "end": 1841.63,
+        "text": "That's like a book that I could have read, a conversation I could have had."
+      },
+      {
+        "start": 1841.63,
+        "end": 1845.97,
+        "text": "So a lot of it is just, let's make all of this information radically transparent."
+      },
+      {
+        "start": 1845.97,
+        "end": 1852.59,
+        "text": "The second thing is really adoption, and this is where you look to the global South as a place we all have to focus on."
+      },
+      {
+        "start": 1852.59,
+        "end": 1858.97,
+        "text": "We've got to make sure that all parts of the world are part of this moment, and that they're all able to use these tools."
+      },
+      {
+        "start": 1858.97,
+        "end": 1868.16,
+        "text": "If you look at electricity, Brad Smith, who writes the foreword for the book, Microsoft's president, has been telling this sort of like tale, this cautionary tale for some time about electricity."
+      },
+      {
+        "start": 1868.16,
+        "end": 1871.36,
+        "text": "There's still large parts of the world that don't have electricity."
+      },
+      {
+        "start": 1871.36,
+        "end": 1881.47,
+        "text": "All sorts of implications, including that those folks are completely blocked out of all the economic growth that comes from electricity and the internet, so we've got to not have that happen with AI."
+      },
+      {
+        "start": 1881.47,
+        "end": 1886.61,
+        "text": "It either will entrench further inequity or it could really start to build greater equity."
+      },
+      {
+        "start": 1886.61,
+        "end": 1889.2,
+        "text": "So education and adoption I think are key."
+      },
+      {
+        "start": 1889.2,
+        "end": 1895.41,
+        "text": "And then the second part, that's bucket one, the second part is just we've got to make sure the story feels inclusive of everyone."
+      },
+      {
+        "start": 1895.41,
+        "end": 1897.56,
+        "text": "And that's what we've tried to do in the book too."
+      },
+      {
+        "start": 1897.56,
+        "end": 1907.88,
+        "text": "But we have a bunch of folks from across sector of societies and professions and stages of career talking about how they're using this tool and how they're changing their work, their career."
+      },
+      {
+        "start": 1907.88,
+        "end": 1914.6,
+        "text": "That's got to be critically important right now, and how we as as people that are pro-human and pro-AI tell the story."
+      },
+      {
+        "start": 1914.6,
+        "end": 1920.05,
+        "text": "People have to, it's a belief change, people have to hear it from people they trust in order to trust it."
+      },
+      {
+        "start": 1920.05,
+        "end": 1927.5,
+        "text": "So I think those are the two most important things that we have to do in policy makers and non-profits have a key role, but so do companies."
+      },
+      {
+        "start": 1927.5,
+        "end": 1930.53,
+        "text": "Okay, and then finally we do like to end on practical notes."
+      },
+      {
+        "start": 1930.53,
+        "end": 1930.87,
+        "text": "Yes."
+      },
+      {
+        "start": 1930.87,
+        "end": 1945.56,
+        "text": "So if someone wants to move forward toward this human-led, uh, agent- operated organization with these kind of frontier employees leading the way, can you give us, like, three concrete steps that an individual professional."
+      },
+      {
+        "start": 1945.56,
+        "end": 1950.13,
+        "text": "Yeah, let's let's go back to us and our only-ness, can take starting right now."
+      },
+      {
+        "start": 1950.13,
+        "end": 1956.49,
+        "text": "To keep it really simple for workers, I would just say one, which is just get started."
+      },
+      {
+        "start": 1956.49,
+        "end": 1960.65,
+        "text": "I mean, right now so many of us are still hunkering down."
+      },
+      {
+        "start": 1960.65,
+        "end": 1961.8,
+        "text": "We're still holding back."
+      },
+      {
+        "start": 1961.8,
+        "end": 1964.73,
+        "text": "We're still waiting for more things to get figured out."
+      },
+      {
+        "start": 1964.73,
+        "end": 1966.35,
+        "text": "Just stop doing that."
+      },
+      {
+        "start": 1966.35,
+        "end": 1968.57,
+        "text": "Um, getting started is super easy."
+      },
+      {
+        "start": 1968.57,
+        "end": 1972.23,
+        "text": "It's just using a tool a day, a couple of tools a week."
+      },
+      {
+        "start": 1972.23,
+        "end": 1974.26,
+        "text": "Give it any sort of project you're working on."
+      },
+      {
+        "start": 1974.26,
+        "end": 1977.73,
+        "text": "We have a lot of good tips on how to do that, how to get started in the book."
+      },
+      {
+        "start": 1977.73,
+        "end": 1982.44,
+        "text": "Um, if you've already started doing that, it's as simple as thinking about your job today or tomorrow."
+      },
+      {
+        "start": 1982.44,
+        "end": 1984.27,
+        "text": "How would you start to use these tools?"
+      },
+      {
+        "start": 1984.27,
+        "end": 1986.25,
+        "text": "What does that open up for what's new?"
+      },
+      {
+        "start": 1986.25,
+        "end": 1992.12,
+        "text": "If you're already that far along, start to think about your career, and what are the key questions you want to wrestle through again, all in the book."
+      },
+      {
+        "start": 1992.12,
+        "end": 2003.64,
+        "text": "But, it's really just you got to get in the day to day of it, and you've got to get to a place where you're excited about the day to day, or at least by day you're less anxious and more, um, of agency and eventually of aspiration about it."
+      },
+      {
+        "start": 2003.64,
+        "end": 2006.74,
+        "text": "So it's really as simple as feel like you're in it."
+      },
+      {
+        "start": 2006.74,
+        "end": 2010.1,
+        "text": "And I promise you, if you're in it, you will feel like you're behind, period."
+      },
+      {
+        "start": 2010.1,
+        "end": 2010.53,
+        "text": "Forever."
+      },
+      {
+        "start": 2010.53,
+        "end": 2015.22,
+        "text": "Like the people that are at the front edge of even AI development feel behind."
+      },
+      {
+        "start": 2015.22,
+        "end": 2018.03,
+        "text": "So you're doing it right if you're running from behind."
+      },
+      {
+        "start": 2018.03,
+        "end": 2020.3,
+        "text": "But you've got to start running, so just start."
+      },
+      {
+        "start": 2020.3,
+        "end": 2023.08,
+        "text": "I feel like it's also very important to say this to senior executives as well."
+      },
+      {
+        "start": 2023.08,
+        "end": 2026.61,
+        "text": "You know, we're saying this as though we're speaking sort of everyone in our organization."
+      },
+      {
+        "start": 2026.61,
+        "end": 2034.63,
+        "text": "But the fact is, the senior executives are the ones who might be trying to implement this without trying it either."
+      },
+      {
+        "start": 2034.63,
+        "end": 2036.09,
+        "text": "100% all the way."
+      },
+      {
+        "start": 2036.09,
+        "end": 2036.77,
+        "text": "It's all the way."
+      },
+      {
+        "start": 2036.77,
+        "end": 2038.85,
+        "text": "I mean, we are all humans at work right now."
+      },
+      {
+        "start": 2038.85,
+        "end": 2040.11,
+        "text": "Don't worry about job title."
+      },
+      {
+        "start": 2040.11,
+        "end": 2041.35,
+        "text": "Don't worry about employees."
+      },
+      {
+        "start": 2041.35,
+        "end": 2043.96,
+        "text": "And that being we are all humans at work."
+      },
+      {
+        "start": 2043.96,
+        "end": 2053.93,
+        "text": "Um, so much of what people need to do is the same if you're starting a career, if you're hoping to end a career and retire soon, if you're the CEO of a company, or if you're the newest hire of a company."
+      },
+      {
+        "start": 2053.93,
+        "end": 2057.31,
+        "text": "What's kind of cool about us all being human is that we're all human."
+      },
+      {
+        "start": 2057.31,
+        "end": 2058.88,
+        "text": "We all have the same brain."
+      },
+      {
+        "start": 2058.88,
+        "end": 2068.47,
+        "text": "Um, this brain has been around longer than the industrial age, longer than our job titles, longer than any of us in our sort of preconceptions of who we are and what we're supposed to do."
+      },
+      {
+        "start": 2068.47,
+        "end": 2069.68,
+        "text": "So let that liberate you."
+      },
+      {
+        "start": 2069.68,
+        "end": 2072.22,
+        "text": "We're all in it together We're all figuring it out together."
+      },
+      {
+        "start": 2072.22,
+        "end": 2078.12,
+        "text": "There's nothing that I would say to someone right out of college that isn't the exact same thing that I would say to a CEO."
+      },
+      {
+        "start": 2078.12,
+        "end": 2081.61,
+        "text": "So just start, be running, run from behind, but be running."
+      },
+      {
+        "start": 2081.61,
+        "end": 2091.76,
+        "text": "I think if you're a leader where you now have to think about systems, intent really is the most important thing, um, defining it for yourself, starting to communicate it out."
+      },
+      {
+        "start": 2091.76,
+        "end": 2099.47,
+        "text": "And I guess the question I often ask leaders that hits hardest right now is, how much of your time on your calendar is budgeted to thinking."
+      },
+      {
+        "start": 2099.47,
+        "end": 2104.73,
+        "text": "And it's really interesting, or not surprising, maybe, that most people are like, well, there's no room for that."
+      },
+      {
+        "start": 2104.73,
+        "end": 2108.98,
+        "text": "Everything is about this tool, this team, this product, this deliverable."
+      },
+      {
+        "start": 2108.98,
+        "end": 2110.65,
+        "text": "And that's the issue."
+      },
+      {
+        "start": 2110.65,
+        "end": 2115.77,
+        "text": "The higher up you go in an organization, the harder the math is right now."
+      },
+      {
+        "start": 2115.77,
+        "end": 2127.53,
+        "text": "And what we know of the brain is the more urgently your brain needs time to think and needs time to develop how it thinks, like that isn't something that you block an hour never having done it before, and that hour becomes this amazing moment of thought."
+      },
+      {
+        "start": 2127.53,
+        "end": 2141.54,
+        "text": "A lot of how I think has been the result of years right now of methodical testing, trying different ways, different processes to get to where my brain is able to connect dots and think new things at a systems level."
+      },
+      {
+        "start": 2141.54,
+        "end": 2143.82,
+        "text": "So you've got to budget that time."
+      },
+      {
+        "start": 2143.82,
+        "end": 2152.61,
+        "text": "There's a great sports agent on LinkedIn who does a lot of thought leadership around this idea that we all should look to athletes and how they manage their calendars now more than ever before."
+      },
+      {
+        "start": 2152.61,
+        "end": 2154.23,
+        "text": "Athletes know it's all about energy."
+      },
+      {
+        "start": 2154.23,
+        "end": 2160.16,
+        "text": "They know that if they're about to come to a big competition, they're shrinking what they're doing, they're getting more routinized."
+      },
+      {
+        "start": 2160.16,
+        "end": 2165.11,
+        "text": "They're building like the time to really perfect the flow of what they need to do."
+      },
+      {
+        "start": 2165.11,
+        "end": 2172.11,
+        "text": "You go to a CEO and often they're like, well, if I'm not scheduled constantly, I'm not being productive and my team's not making sure that I'm productive."
+      },
+      {
+        "start": 2172.11,
+        "end": 2174.59,
+        "text": "And so it really it's personal."
+      },
+      {
+        "start": 2174.59,
+        "end": 2177.7,
+        "text": "It's only-ness, how you think and how your energy works."
+      },
+      {
+        "start": 2177.7,
+        "end": 2183.85,
+        "text": "But you've got to start building that muscle as a leader or it's just going to wash over you, this change."
+      },
+      {
+        "start": 2183.85,
+        "end": 2191.21,
+        "text": "It was one of the great discoveries of the book, is I would talk to neuroscientists and say, um, who do you talk to in the arena of work?"
+      },
+      {
+        "start": 2191.21,
+        "end": 2194.3,
+        "text": "And they'd say, athletes, because they're trying to push their mind to the brink."
+      },
+      {
+        "start": 2194.3,
+        "end": 2211.25,
+        "text": "We are all of such limitless belief about what AI is going to be able to do, and yet of such diminished belief about what we are going to be able to do with AI because we're sleeping on, again, the most sophisticated, complex object in the known universe, the human brain."
+      },
+      {
+        "start": 2211.25,
+        "end": 2214.41,
+        "text": "And we all have it, and we all what we know of neuroplasticity."
+      },
+      {
+        "start": 2214.41,
+        "end": 2219.2,
+        "text": "We can all perfect it, we can tinker with it, we can train it."
+      },
+      {
+        "start": 2219.2,
+        "end": 2220.59,
+        "text": "And it always starts small."
+      },
+      {
+        "start": 2220.59,
+        "end": 2225.91,
+        "text": "Two books I just finished, important titles, um, \"Tiny Bets\" and \"Little Experiments.”"
+      },
+      {
+        "start": 2225.91,
+        "end": 2229.35,
+        "text": "Like it's all about the small steps."
+      },
+      {
+        "start": 2229.35,
+        "end": 2236.94,
+        "text": "And over time they compound in your brain is wired differently, and suddenly you are wired differently, and suddenly you are different as a result."
+      },
+      {
+        "start": 2236.94,
+        "end": 2237.82,
+        "text": "Trust your brain."
+      },
+      {
+        "start": 2237.82,
+        "end": 2240.15,
+        "text": "Aneesh, thank you so much for coming back to WorkLab."
+      },
+      {
+        "start": 2240.15,
+        "end": 2241.01,
+        "text": "Thanks for having me."
+      },
+      {
+        "start": 2241.01,
+        "end": 2250.29,
+        "text": "Thank you again to Aneesh Raman, LinkedIn's Chief Economic Opportunity Officer and coauthor of the book \"Open to Work: How to Get Ahead in the Age of AI.”"
+      },
+      {
+        "start": 2250.29,
+        "end": 2253.52,
+        "text": "For more podcasts like this one, check out Microsoft.com/WorkLab."
+      },
+      {
+        "start": 2253.52,
+        "end": 2257.05,
+        "text": "And thanks so much for listening and watching."
+      }
+    ]
+  },
+  {
     "id": "oxford-understand-interact-ai",
     "title": "How to Understand and Interact with AI",
     "subtitle": "Real Oxford interview on future artificial agents",
