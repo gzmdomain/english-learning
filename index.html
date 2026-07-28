@@ -73,8 +73,13 @@
     display: flex; gap: 16px; font-size: 12px; color: var(--text-dim);
   }
   .header .stats span { display: flex; align-items: center; gap: 4px; }
-  .session-start-btn {
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-left: auto;
+  }
+  .session-start-btn {
     min-height: 38px;
     padding: 0 14px;
     border: 1px solid var(--accent);
@@ -96,7 +101,38 @@
     background: transparent;
     color: var(--accent);
   }
-  .header .session-start-btn + .stats { margin-left: 0; }
+  .review-start-btn {
+    min-height: 38px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.025);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 750;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .review-start-btn:hover {
+    border-color: var(--highlight);
+    color: var(--highlight);
+    background: var(--highlight-bg);
+  }
+  .review-due-badge {
+    display: inline-grid;
+    min-width: 22px;
+    height: 20px;
+    margin-left: 5px;
+    padding: 0 6px;
+    place-items: center;
+    border-radius: 10px;
+    background: var(--highlight);
+    color: #17120a;
+    font-size: 11px;
+    font-weight: 850;
+  }
+  .header .header-actions + .stats { margin-left: 0; }
 
   /* === Main Content === */
   .main {
@@ -987,6 +1023,227 @@
     line-height: 1.45;
   }
 
+  /* Vocabulary review */
+  .review-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 320;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.74);
+  }
+  .review-dialog[hidden] { display: none; }
+  .review-shell {
+    width: min(680px, 100%);
+    max-height: min(760px, calc(100vh - 40px));
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #181820;
+    box-shadow: var(--shadow);
+  }
+  .review-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 22px 14px;
+  }
+  .review-head h2 {
+    margin: 3px 0 0;
+    color: var(--text-primary);
+    font-size: 21px;
+  }
+  .review-close {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .review-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin: 0 22px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #111117;
+  }
+  .review-tab {
+    min-height: 36px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .review-tab:hover,
+  .review-tab.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+  .review-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 22px 10px;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  .review-progress {
+    color: var(--text-primary);
+    font-weight: 750;
+  }
+  .review-card {
+    position: relative;
+    display: grid;
+    min-height: 320px;
+    margin: 0 22px;
+    padding: 34px 28px;
+    place-items: center;
+    align-content: center;
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(251,191,36,0.07), rgba(255,255,255,0.01)),
+      #1d1d26;
+    text-align: center;
+  }
+  .review-card[hidden] { display: none; }
+  .review-source {
+    color: var(--highlight);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .review-word-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 16px;
+  }
+  .review-word {
+    max-width: 100%;
+    color: var(--text-primary);
+    font-size: 42px;
+    font-weight: 750;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .review-speak {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    color: var(--highlight);
+    cursor: pointer;
+  }
+  .review-phonetic {
+    min-height: 24px;
+    margin-top: 10px;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+  .review-meaning {
+    width: min(500px, 100%);
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 20px;
+    font-weight: 650;
+    line-height: 1.55;
+  }
+  .review-meaning[hidden] { display: none; }
+  .review-actions {
+    padding: 16px 22px 22px;
+  }
+  .review-reveal {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--highlight);
+    border-radius: 8px;
+    background: var(--highlight);
+    color: #17120a;
+    font-weight: 850;
+    cursor: pointer;
+  }
+  .review-answer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 10px;
+  }
+  .review-answer-actions[hidden],
+  .review-reveal[hidden] {
+    display: none;
+  }
+  .review-rate {
+    min-height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.025);
+    color: var(--text-primary);
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .review-rate.again:hover {
+    border-color: var(--highlight);
+    color: var(--highlight);
+  }
+  .review-rate.known {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #000;
+  }
+  .review-empty {
+    min-height: 320px;
+    margin: 0 22px;
+    padding: 48px 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    text-align: center;
+  }
+  .review-empty[hidden] { display: none; }
+  .review-empty-mark {
+    display: grid;
+    width: 56px;
+    height: 56px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 24px;
+    font-weight: 850;
+  }
+  .review-empty h3 {
+    margin: 16px 0 0;
+    color: var(--text-primary);
+    font-size: 20px;
+  }
+  .review-empty p {
+    margin: 7px 0 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
   /* Loop mode indicator */
   .loop-indicator {
     font-size: 11px;
@@ -1222,10 +1479,16 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .header .session-start-btn {
+    .header-actions {
       order: 3;
       width: 100%;
       margin-left: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+    .header .session-start-btn,
+    .header .review-start-btn {
+      width: 100%;
     }
     .header .stats {
       display: none;
@@ -1332,6 +1595,43 @@
       border-left: 0;
       border-radius: 10px 10px 0 0;
     }
+    .review-dialog {
+      padding: 0;
+      place-items: stretch;
+    }
+    .review-shell {
+      width: 100%;
+      max-height: 100vh;
+      border: 0;
+      border-radius: 0;
+    }
+    .review-head {
+      padding: max(16px, env(safe-area-inset-top)) 16px 12px;
+    }
+    .review-tabs {
+      margin: 0 14px;
+    }
+    .review-status {
+      padding: 12px 16px 9px;
+    }
+    .review-card {
+      min-height: 300px;
+      margin: 0 14px;
+      padding: 28px 18px;
+    }
+    .review-word {
+      font-size: 36px;
+    }
+    .review-meaning {
+      font-size: 18px;
+    }
+    .review-actions {
+      padding: 14px 14px max(18px, env(safe-area-inset-bottom));
+    }
+    .review-empty {
+      min-height: 300px;
+      margin: 0 14px;
+    }
   }
 </style>
 </head>
@@ -1350,7 +1650,12 @@
       <h1 id="trackTitle">Jensen Huang — Caltech Commencement 2024</h1>
       <p id="trackSubtitle">🎓 English Learning · Scroll Subtitles with Vocabulary</p>
     </div>
-    <button class="session-start-btn" id="sessionStartBtn" type="button">▶ 开始 5 分钟 · 今日 0 轮</button>
+    <div class="header-actions">
+      <button class="review-start-btn" id="reviewStartBtn" type="button">
+        背单词 <span class="review-due-badge" id="reviewDueBadge">0</span>
+      </button>
+      <button class="session-start-btn" id="sessionStartBtn" type="button">▶ 开始 5 分钟 · 今日 0 轮</button>
+    </div>
     <div class="stats">
       <span>📖 <span id="vocabCount">0</span> words</span>
       <span>⏱ <span id="durationStat">--:--</span></span>
@@ -1482,6 +1787,48 @@
   </div>
 </div>
 
+<div class="review-dialog" id="reviewDialog" role="dialog" aria-modal="true" aria-labelledby="reviewTitle" hidden>
+  <div class="review-shell">
+    <div class="review-head">
+      <div>
+        <div class="easy-session-kicker">Vocabulary review</div>
+        <h2 id="reviewTitle">背单词</h2>
+      </div>
+      <button class="review-close" id="reviewCloseBtn" type="button" aria-label="关闭背单词">✕</button>
+    </div>
+    <div class="review-tabs" role="tablist" aria-label="复习范围">
+      <button class="review-tab active" type="button" role="tab" aria-selected="true" data-review-mode="due">今天到期</button>
+      <button class="review-tab" type="button" role="tab" aria-selected="false" data-review-mode="course">本课词汇</button>
+      <button class="review-tab" type="button" role="tab" aria-selected="false" data-review-mode="notebook">我的单词本</button>
+    </div>
+    <div class="review-status">
+      <span class="review-progress" id="reviewProgress">剩余 0</span>
+      <span id="reviewScore">认识 0 · 再练 0</span>
+    </div>
+    <div class="review-card" id="reviewCard" hidden>
+      <div class="review-source" id="reviewSource">本课词汇</div>
+      <div class="review-word-row">
+        <div class="review-word" id="reviewWord"></div>
+        <button class="review-speak" id="reviewSpeakBtn" type="button" title="朗读" aria-label="朗读当前单词">🔊</button>
+      </div>
+      <div class="review-phonetic" id="reviewPhonetic"></div>
+      <div class="review-meaning" id="reviewMeaning" hidden></div>
+    </div>
+    <div class="review-empty" id="reviewEmpty">
+      <div class="review-empty-mark">✓</div>
+      <h3 id="reviewEmptyTitle">今天没有待复习单词</h3>
+      <p id="reviewEmptyText">可以切换到“本课词汇”开始新一轮。</p>
+    </div>
+    <div class="review-actions" id="reviewActions" hidden>
+      <button class="review-reveal" id="reviewRevealBtn" type="button">显示释义</button>
+      <div class="review-answer-actions" id="reviewAnswerActions" hidden>
+        <button class="review-rate again" id="reviewAgainBtn" type="button">再练</button>
+        <button class="review-rate known" id="reviewKnownBtn" type="button">认识</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Word lookup popup -->
 <div id="wordPopup">
   <button class="popup-close" id="popupClose">✕</button>
@@ -1564,6 +1911,26 @@ const easyCompleteBtn = document.getElementById('easyCompleteBtn');
 const boredBtn = document.getElementById('boredBtn');
 const rescueDialog = document.getElementById('rescueDialog');
 const rescueCloseBtn = document.getElementById('rescueCloseBtn');
+const reviewStartBtn = document.getElementById('reviewStartBtn');
+const reviewDueBadge = document.getElementById('reviewDueBadge');
+const reviewDialog = document.getElementById('reviewDialog');
+const reviewCloseBtn = document.getElementById('reviewCloseBtn');
+const reviewProgress = document.getElementById('reviewProgress');
+const reviewScore = document.getElementById('reviewScore');
+const reviewCard = document.getElementById('reviewCard');
+const reviewSource = document.getElementById('reviewSource');
+const reviewWord = document.getElementById('reviewWord');
+const reviewPhonetic = document.getElementById('reviewPhonetic');
+const reviewMeaning = document.getElementById('reviewMeaning');
+const reviewSpeakBtn = document.getElementById('reviewSpeakBtn');
+const reviewEmpty = document.getElementById('reviewEmpty');
+const reviewEmptyTitle = document.getElementById('reviewEmptyTitle');
+const reviewEmptyText = document.getElementById('reviewEmptyText');
+const reviewActions = document.getElementById('reviewActions');
+const reviewRevealBtn = document.getElementById('reviewRevealBtn');
+const reviewAnswerActions = document.getElementById('reviewAnswerActions');
+const reviewAgainBtn = document.getElementById('reviewAgainBtn');
+const reviewKnownBtn = document.getElementById('reviewKnownBtn');
 
 let currentSegIndex = -1;
 let loopSegIndex = -1; // for sentence loop
@@ -1576,6 +1943,8 @@ let lessonSections = [];
 let currentSectionIndex = 0;
 const EASY_SESSION_SECONDS = 300;
 const EASY_ROUNDS_KEY = 'english_learning_easy_rounds';
+const REVIEW_PROGRESS_KEY = 'english_learning_review_progress';
+const REVIEW_INTERVAL_DAYS = [1, 3, 7, 14, 30, 60];
 let easySessionState = {
   active: false,
   focusIndex: -1,
@@ -1584,6 +1953,16 @@ let easySessionState = {
   listenCount: 0,
   playingFocus: false,
   completed: false
+};
+let reviewState = {
+  mode: 'due',
+  queue: [],
+  current: null,
+  revealed: false,
+  known: 0,
+  again: 0,
+  seen: 0,
+  repeatCounts: {}
 };
 
 // === Helpers ===
@@ -1830,6 +2209,223 @@ function checkEasySentenceEnd() {
   updateEasySessionCopy();
 }
 
+function loadReviewProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(REVIEW_PROGRESS_KEY) || '{}') || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveReviewProgress(progress) {
+  localStorage.setItem(REVIEW_PROGRESS_KEY, JSON.stringify(progress));
+  updateReviewDueButton();
+}
+
+function makeReviewWord(word, info = {}, source = '复习词汇') {
+  const cleanWord = String(word || '').trim();
+  return {
+    key: cleanWord.toLowerCase(),
+    word: cleanWord,
+    phonetic: info.phonetic || '',
+    meaning: info.meaning || info.zh || '',
+    source
+  };
+}
+
+function getCourseReviewWords() {
+  return Object.entries(VOCAB || {}).map(([word, info]) => {
+    return makeReviewWord(word, info, '本课词汇');
+  });
+}
+
+function getNotebookReviewWords() {
+  return Object.entries(loadNotebook()).map(([word, info]) => {
+    return makeReviewWord(word, info, '我的单词本');
+  });
+}
+
+function getAllReviewWords() {
+  const progress = loadReviewProgress();
+  const words = new Map();
+
+  Object.values(progress).forEach((item) => {
+    if (!item || !item.word) return;
+    const word = makeReviewWord(item.word, item, item.source || '复习词汇');
+    words.set(word.key, word);
+  });
+
+  [...getCourseReviewWords(), ...getNotebookReviewWords()].forEach((item) => {
+    const previous = words.get(item.key);
+    words.set(item.key, {
+      ...previous,
+      ...item,
+      phonetic: item.phonetic || previous?.phonetic || '',
+      meaning: item.meaning || previous?.meaning || ''
+    });
+  });
+
+  return [...words.values()];
+}
+
+function getReviewWords(mode = 'due') {
+  if (mode === 'course') return getCourseReviewWords();
+  if (mode === 'notebook') return getNotebookReviewWords();
+
+  const now = Date.now();
+  const progress = loadReviewProgress();
+  return getAllReviewWords().filter((item) => {
+    const state = progress[item.key];
+    return !state || !Number.isFinite(state.dueAt) || state.dueAt <= now;
+  });
+}
+
+function shuffleReviewWords(items) {
+  const result = [...items];
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(Math.random() * (index + 1));
+    [result[index], result[target]] = [result[target], result[index]];
+  }
+  return result;
+}
+
+function updateReviewDueButton() {
+  const count = getReviewWords('due').length;
+  reviewDueBadge.textContent = count > 99 ? '99+' : String(count);
+  reviewStartBtn.title = count
+    ? `今天有 ${count} 个单词待复习`
+    : '今天的复习已经完成';
+}
+
+function updateReviewTabs() {
+  document.querySelectorAll('[data-review-mode]').forEach((button) => {
+    const active = button.dataset.reviewMode === reviewState.mode;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-selected', String(active));
+  });
+}
+
+function showReviewEmpty() {
+  reviewCard.hidden = true;
+  reviewActions.hidden = true;
+  reviewEmpty.hidden = false;
+  reviewProgress.textContent = '剩余 0';
+  reviewScore.textContent = `认识 ${reviewState.known} · 再练 ${reviewState.again}`;
+
+  if (reviewState.seen > 0) {
+    reviewEmptyTitle.textContent = '本轮完成';
+    reviewEmptyText.textContent = `复习了 ${reviewState.seen} 次，认识 ${reviewState.known} 次，再练 ${reviewState.again} 次。`;
+  } else if (reviewState.mode === 'notebook') {
+    reviewEmptyTitle.textContent = '单词本还是空的';
+    reviewEmptyText.textContent = '点击字幕里的单词，再加入单词本后就能单独复习。';
+  } else if (reviewState.mode === 'course') {
+    reviewEmptyTitle.textContent = '本课没有可复习词汇';
+    reviewEmptyText.textContent = '换一节课后再来看看。';
+  } else {
+    reviewEmptyTitle.textContent = '今天没有待复习单词';
+    reviewEmptyText.textContent = '可以切换到“本课词汇”开始新一轮。';
+  }
+
+  updateReviewDueButton();
+}
+
+function showNextReviewWord() {
+  reviewState.current = reviewState.queue.shift() || null;
+  reviewState.revealed = false;
+  if (!reviewState.current) {
+    showReviewEmpty();
+    return;
+  }
+
+  const item = reviewState.current;
+  reviewEmpty.hidden = true;
+  reviewCard.hidden = false;
+  reviewActions.hidden = false;
+  reviewRevealBtn.hidden = false;
+  reviewAnswerActions.hidden = true;
+  reviewMeaning.hidden = true;
+  reviewSource.textContent = item.source;
+  reviewWord.textContent = item.word;
+  reviewPhonetic.textContent = item.phonetic || ' ';
+  reviewMeaning.textContent = item.meaning || '暂无中文释义';
+  reviewProgress.textContent = `剩余 ${reviewState.queue.length + 1}`;
+  reviewScore.textContent = `认识 ${reviewState.known} · 再练 ${reviewState.again}`;
+}
+
+function startVocabularyReview(mode = 'due') {
+  if (easySessionState.active) completeEasySession();
+  audio.pause();
+  rescueDialog.hidden = true;
+  wordPopup.classList.remove('show');
+
+  reviewState = {
+    mode,
+    queue: shuffleReviewWords(getReviewWords(mode)),
+    current: null,
+    revealed: false,
+    known: 0,
+    again: 0,
+    seen: 0,
+    repeatCounts: {}
+  };
+  reviewDialog.hidden = false;
+  updateReviewTabs();
+  showNextReviewWord();
+  reviewCloseBtn.focus();
+}
+
+function closeVocabularyReview() {
+  reviewDialog.hidden = true;
+  reviewStartBtn.focus();
+  updateReviewDueButton();
+}
+
+function revealReviewMeaning() {
+  if (!reviewState.current) return;
+  reviewState.revealed = true;
+  reviewMeaning.hidden = false;
+  reviewRevealBtn.hidden = true;
+  reviewAnswerActions.hidden = false;
+  reviewAgainBtn.focus();
+}
+
+function rateReviewWord(result) {
+  if (!reviewState.current || !reviewState.revealed) return;
+
+  const item = reviewState.current;
+  const progress = loadReviewProgress();
+  const previous = progress[item.key] || {};
+  const previousLevel = Number(previous.level) || 0;
+  const now = Date.now();
+  let level = previousLevel;
+  let dueAt = now;
+
+  if (result === 'known') {
+    level = Math.min(REVIEW_INTERVAL_DAYS.length, previousLevel + 1);
+    dueAt = now + REVIEW_INTERVAL_DAYS[Math.max(0, level - 1)] * 86400000;
+    reviewState.known += 1;
+  } else {
+    level = Math.max(0, previousLevel - 1);
+    reviewState.again += 1;
+    const repeats = (reviewState.repeatCounts[item.key] || 0) + 1;
+    reviewState.repeatCounts[item.key] = repeats;
+    if (repeats <= 2) reviewState.queue.push(item);
+  }
+
+  progress[item.key] = {
+    word: item.word,
+    phonetic: item.phonetic,
+    meaning: item.meaning,
+    source: item.source,
+    level,
+    dueAt,
+    lastReviewedAt: now
+  };
+  saveReviewProgress(progress);
+  reviewState.seen += 1;
+  showNextReviewWord();
+}
+
 function getLessonEndTime() {
   const lastSegmentEnd = SEGMENTS.reduce((max, seg) => Math.max(max, seg.end), 0);
   const audioEnd = Number.isFinite(audio.duration) ? audio.duration : 0;
@@ -2031,6 +2627,7 @@ function switchTrack(index) {
   applyDictationMode();
   buildVocabList();
   updateSentenceCount();
+  updateReviewDueButton();
   if (easySessionState.active) {
     setEasyFocus(findEasyFocusIndex(-1));
   }
@@ -2553,6 +3150,7 @@ function loadNotebook() {
 function saveNotebook(nb) {
   localStorage.setItem(NB_KEY, JSON.stringify(nb));
   updateNotebookCount();
+  updateReviewDueButton();
 }
 function addToNotebook(word, phonetic, meaning) {
   const nb = loadNotebook();
@@ -2929,6 +3527,21 @@ sessionStartBtn.addEventListener('click', () => {
   startEasySession();
 });
 
+reviewStartBtn.addEventListener('click', () => startVocabularyReview('due'));
+reviewCloseBtn.addEventListener('click', closeVocabularyReview);
+reviewDialog.addEventListener('click', (event) => {
+  if (event.target === reviewDialog) closeVocabularyReview();
+});
+document.querySelectorAll('[data-review-mode]').forEach((button) => {
+  button.addEventListener('click', () => startVocabularyReview(button.dataset.reviewMode));
+});
+reviewRevealBtn.addEventListener('click', revealReviewMeaning);
+reviewAgainBtn.addEventListener('click', () => rateReviewWord('again'));
+reviewKnownBtn.addEventListener('click', () => rateReviewWord('known'));
+reviewSpeakBtn.addEventListener('click', () => {
+  if (reviewState.current) playPronunciation(reviewState.current.word);
+});
+
 easyListenBtn.addEventListener('click', playEasyFocus);
 easyRevealBtn.addEventListener('click', revealEasyFocus);
 easyTranslateBtn.addEventListener('click', () => {
@@ -3082,6 +3695,21 @@ document.getElementById('vocabToggle').addEventListener('click', () => {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+  if (!reviewDialog.hidden) {
+    if (e.key === 'Escape') {
+      closeVocabularyReview();
+    } else if (e.key === ' ') {
+      e.preventDefault();
+      if (!reviewState.revealed) revealReviewMeaning();
+    } else if (reviewState.revealed && e.key === '1') {
+      rateReviewWord('again');
+    } else if (reviewState.revealed && e.key === '2') {
+      rateReviewWord('known');
+    } else if ((e.key === 'p' || e.key === 'P') && reviewState.current) {
+      playPronunciation(reviewState.current.word);
+    }
+    return;
+  }
   if (e.target.tagName === 'INPUT') return;
   if (e.key === 'Escape' && !rescueDialog.hidden) {
     closeRescueDialog();
@@ -3140,6 +3768,7 @@ applyDictationMode();
 buildVocabList();
 updateSentenceCount();
 updateSessionStartButton();
+updateReviewDueButton();
 
 // Fallback hide loading
 setTimeout(() => loading.classList.add('hidden'), 3000);
