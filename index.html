@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎓 Jensen Huang - Caltech 2024 Commencement Speech | English Learning</title>
+<link rel="icon" href="data:,">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
@@ -72,6 +73,30 @@
     display: flex; gap: 16px; font-size: 12px; color: var(--text-dim);
   }
   .header .stats span { display: flex; align-items: center; gap: 4px; }
+  .session-start-btn {
+    margin-left: auto;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: var(--accent);
+    color: #000;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+  }
+  .session-start-btn:hover {
+    background: #8ad400;
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  .session-start-btn:active { transform: translateY(1px); }
+  .session-start-btn.is-active {
+    background: transparent;
+    color: var(--accent);
+  }
+  .header .session-start-btn + .stats { margin-left: 0; }
 
   /* === Main Content === */
   .main {
@@ -750,6 +775,218 @@
     min-width: 0;
   }
 
+  /* Five-minute easy session */
+  .easy-session {
+    flex-shrink: 0;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(118,185,0,0.35);
+    background: linear-gradient(90deg, rgba(118,185,0,0.14), rgba(118,185,0,0.03));
+  }
+  .easy-session[hidden] { display: none; }
+  .easy-session-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .easy-session-copy { min-width: 0; }
+  .easy-session-kicker {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .easy-session-title {
+    margin-top: 3px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .easy-session-note {
+    margin-top: 3px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .easy-session-timer {
+    min-width: 74px;
+    color: var(--accent);
+    font-size: 26px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .easy-session-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 12px;
+  }
+  .easy-action {
+    min-height: 34px;
+    padding: 0 11px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.025);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .easy-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .easy-action.is-primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #000;
+  }
+  .easy-action.is-primary:hover { background: #8ad400; color: #000; }
+  .easy-session.is-complete {
+    background: linear-gradient(90deg, rgba(118,185,0,0.2), rgba(118,185,0,0.05));
+  }
+  .easy-session.is-complete .easy-session-timer { font-size: 18px; }
+  .easy-listen-prompt { display: none; }
+  body.easy-session-mode .section-nav,
+  body.easy-session-mode .subtitle-tools {
+    display: none;
+  }
+  body.easy-session-mode .subtitle-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+  }
+  body.easy-session-mode .seg:not(.easy-focus) {
+    display: none !important;
+  }
+  body.easy-session-mode .seg.easy-focus {
+    width: min(760px, 100%);
+    margin: 0;
+    padding: 28px 138px 28px 26px;
+    border: 1px solid rgba(118,185,0,0.38);
+    border-left: 4px solid var(--accent);
+    background: rgba(118,185,0,0.08);
+    cursor: default;
+  }
+  body.easy-session-mode .seg.easy-focus .seg-time {
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  body.easy-session-mode .seg.easy-focus .seg-text {
+    font-size: 22px;
+    line-height: 1.6;
+    color: var(--text-primary);
+  }
+  body.easy-session-mode .seg.easy-focus:not(.easy-session-revealed) .seg-text {
+    display: none;
+  }
+  body.easy-session-mode .seg.easy-focus:not(.easy-session-revealed) .easy-listen-prompt {
+    display: block;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 650;
+    line-height: 1.55;
+  }
+  body.easy-session-mode .seg.easy-focus .seg-actions { display: none; }
+
+  .bored-btn {
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid rgba(251,191,36,0.45);
+    border-radius: 8px;
+    background: rgba(251,191,36,0.08);
+    color: var(--highlight);
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .bored-btn:hover { background: rgba(251,191,36,0.16); }
+
+  .rescue-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.68);
+  }
+  .rescue-dialog[hidden] { display: none; }
+  .rescue-sheet {
+    width: min(520px, 100%);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #1b1b24;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .rescue-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 20px 14px;
+  }
+  .rescue-head h2 {
+    margin: 3px 0 0;
+    color: var(--text-primary);
+    font-size: 20px;
+  }
+  .rescue-close {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .rescue-options {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+  }
+  .rescue-option {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 15px 20px;
+    border: 0;
+    background: #20202a;
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+  }
+  .rescue-option:hover { background: var(--bg-hover); }
+  .rescue-icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .rescue-option strong {
+    display: block;
+    font-size: 14px;
+  }
+  .rescue-option span:last-child {
+    display: block;
+    margin-top: 3px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
   /* Loop mode indicator */
   .loop-indicator {
     font-size: 11px;
@@ -977,8 +1214,55 @@
     .header {
       padding: 12px 14px;
       gap: 10px;
+      flex-wrap: wrap;
+    }
+    .header .title-group { min-width: 0; flex: 1; }
+    .header .title-group h1 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .header .session-start-btn {
+      order: 3;
+      width: 100%;
+      margin-left: 0;
     }
     .header .stats {
+      display: none;
+    }
+    .player-bar {
+      padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+    }
+    .progress-row {
+      gap: 8px;
+    }
+    .progress-row .time-label {
+      min-width: 42px;
+    }
+    .controls-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .volume-control {
+      display: none;
+    }
+    .controls-row > .btn {
+      justify-self: center;
+    }
+    .speed-control {
+      grid-column: 3 / -1;
+      width: 100%;
+      margin-left: 0;
+    }
+    .speed-btn {
+      flex: 1;
+      min-width: 0;
+      padding-right: 4px;
+      padding-left: 4px;
+    }
+    .speed-btn[data-speed="0.5"],
+    .speed-btn[data-speed="1.5"] {
       display: none;
     }
     .subtitle-tools {
@@ -1004,6 +1288,50 @@
     .seg-actions {
       right: 6px;
     }
+    .easy-session {
+      padding: 12px 14px;
+    }
+    .easy-session-main {
+      align-items: flex-start;
+    }
+    .easy-session-title {
+      font-size: 15px;
+    }
+    .easy-session-timer {
+      min-width: 62px;
+      font-size: 22px;
+    }
+    .easy-session-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .easy-action:last-child {
+      grid-column: 1 / -1;
+    }
+    body.easy-session-mode .subtitle-panel {
+      padding: 18px 14px;
+    }
+    body.easy-session-mode .seg.easy-focus {
+      padding: 22px 18px;
+    }
+    body.easy-session-mode .seg.easy-focus .seg-text {
+      font-size: 19px;
+    }
+    .bored-btn {
+      grid-column: 1 / 3;
+      width: 100%;
+    }
+    .rescue-dialog {
+      align-items: end;
+      padding: 0;
+    }
+    .rescue-sheet {
+      width: 100%;
+      border-right: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 10px 10px 0 0;
+    }
   }
 </style>
 </head>
@@ -1022,6 +1350,7 @@
       <h1 id="trackTitle">Jensen Huang — Caltech Commencement 2024</h1>
       <p id="trackSubtitle">🎓 English Learning · Scroll Subtitles with Vocabulary</p>
     </div>
+    <button class="session-start-btn" id="sessionStartBtn" type="button">▶ 开始 5 分钟 · 今日 0 轮</button>
     <div class="stats">
       <span>📖 <span id="vocabCount">0</span> words</span>
       <span>⏱ <span id="durationStat">--:--</span></span>
@@ -1035,6 +1364,23 @@
       <div class="track-list" id="trackTabs"></div>
     </nav>
     <div class="subtitle-wrapper">
+      <section class="easy-session" id="easySession" aria-live="polite" hidden>
+        <div class="easy-session-main">
+          <div class="easy-session-copy">
+            <div class="easy-session-kicker">5-minute easy mode</div>
+            <div class="easy-session-title" id="easySessionTitle">今天只完成这一句</div>
+            <div class="easy-session-note" id="easySessionNote">先听一遍，不需要全部听懂。</div>
+          </div>
+          <div class="easy-session-timer" id="easySessionTimer">5:00</div>
+        </div>
+        <div class="easy-session-actions" id="easySessionActions">
+          <button class="easy-action is-primary" id="easyListenBtn" type="button">▶ 听一遍</button>
+          <button class="easy-action" id="easyRevealBtn" type="button">文 看原文</button>
+          <button class="easy-action" id="easyTranslateBtn" type="button">译 看翻译</button>
+          <button class="easy-action" id="easyNextBtn" type="button">↻ 换一句</button>
+          <button class="easy-action" id="easyCompleteBtn" type="button">✓ 完成本轮</button>
+        </div>
+      </section>
       <div class="subtitle-tools">
         <label class="autoscroll-toggle">
           <input type="checkbox" id="autoScroll" checked> Auto-scroll
@@ -1096,6 +1442,7 @@
       <button class="btn btn-play" id="playBtn" title="Play/Pause">▶</button>
       <button class="btn" id="fwdBtn" title="Forward 5s">↪️</button>
       <button class="btn" id="nextBtn" title="Next sentence">⏭</button>
+      <button class="bored-btn" id="boredBtn" type="button">我听烦了</button>
       <div class="speed-control">
         <button class="speed-btn" data-speed="0.5">0.5x</button>
         <button class="speed-btn" data-speed="0.75">0.75x</button>
@@ -1108,6 +1455,32 @@
 </div>
 
 <button class="vocab-toggle" id="vocabToggle">📚</button>
+
+<div class="rescue-dialog" id="rescueDialog" role="dialog" aria-modal="true" aria-labelledby="rescueTitle" hidden>
+  <div class="rescue-sheet">
+    <div class="rescue-head">
+      <div>
+        <div class="easy-session-kicker">先别硬撑</div>
+        <h2 id="rescueTitle">现在换一种方式</h2>
+      </div>
+      <button class="rescue-close" id="rescueCloseBtn" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="rescue-options">
+      <button class="rescue-option" type="button" data-rescue="easier">
+        <span class="rescue-icon">0.75</span>
+        <span><strong>太难了</strong><span>降速、显示原文，并翻译当前句。</span></span>
+      </button>
+      <button class="rescue-option" type="button" data-rescue="next">
+        <span class="rescue-icon">↻</span>
+        <span><strong>重复烦了</strong><span>换到下一句，不从头来。</span></span>
+      </button>
+      <button class="rescue-option" type="button" data-rescue="finish">
+        <span class="rescue-icon">✓</span>
+        <span><strong>今天到这里</strong><span>记为完成一轮，放心关掉。</span></span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- Word lookup popup -->
 <div id="wordPopup">
@@ -1177,6 +1550,20 @@ const nextSection = document.getElementById('nextSection');
 const volumeSlider = document.getElementById('volumeSlider');
 const volumeBtn = document.getElementById('volumeBtn');
 const loading = document.getElementById('loading');
+const sessionStartBtn = document.getElementById('sessionStartBtn');
+const easySessionEl = document.getElementById('easySession');
+const easySessionTitle = document.getElementById('easySessionTitle');
+const easySessionNote = document.getElementById('easySessionNote');
+const easySessionTimer = document.getElementById('easySessionTimer');
+const easySessionActions = document.getElementById('easySessionActions');
+const easyListenBtn = document.getElementById('easyListenBtn');
+const easyRevealBtn = document.getElementById('easyRevealBtn');
+const easyTranslateBtn = document.getElementById('easyTranslateBtn');
+const easyNextBtn = document.getElementById('easyNextBtn');
+const easyCompleteBtn = document.getElementById('easyCompleteBtn');
+const boredBtn = document.getElementById('boredBtn');
+const rescueDialog = document.getElementById('rescueDialog');
+const rescueCloseBtn = document.getElementById('rescueCloseBtn');
 
 let currentSegIndex = -1;
 let loopSegIndex = -1; // for sentence loop
@@ -1187,6 +1574,17 @@ const SECTION_TARGET_SECONDS = 600;
 const MIN_FINAL_SECTION_SECONDS = 300;
 let lessonSections = [];
 let currentSectionIndex = 0;
+const EASY_SESSION_SECONDS = 300;
+const EASY_ROUNDS_KEY = 'english_learning_easy_rounds';
+let easySessionState = {
+  active: false,
+  focusIndex: -1,
+  deadline: 0,
+  timerId: 0,
+  listenCount: 0,
+  playingFocus: false,
+  completed: false
+};
 
 // === Helpers ===
 function formatTime(s) {
@@ -1211,6 +1609,225 @@ function decodeHtmlEntities(t) {
 
 function clamp(n, min, max) {
   return Math.min(max, Math.max(min, n));
+}
+
+function getLocalDateKey() {
+  const now = new Date();
+  return [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, '0'),
+    String(now.getDate()).padStart(2, '0')
+  ].join('-');
+}
+
+function getTodayRounds() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(EASY_ROUNDS_KEY) || '{}');
+    return stored.date === getLocalDateKey() ? Number(stored.count) || 0 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function addTodayRound() {
+  const count = getTodayRounds() + 1;
+  localStorage.setItem(EASY_ROUNDS_KEY, JSON.stringify({
+    date: getLocalDateKey(),
+    count
+  }));
+  return count;
+}
+
+function getEasySessionRemaining() {
+  if (!easySessionState.active) return EASY_SESSION_SECONDS;
+  return Math.max(0, Math.ceil((easySessionState.deadline - Date.now()) / 1000));
+}
+
+function updateSessionStartButton() {
+  const rounds = getTodayRounds();
+  if (easySessionState.active) {
+    sessionStartBtn.textContent = `进行中 ${formatTime(getEasySessionRemaining())} · 今日 ${rounds} 轮`;
+    sessionStartBtn.classList.add('is-active');
+    return;
+  }
+
+  const label = easySessionState.completed ? '再来 5 分钟' : '开始 5 分钟';
+  sessionStartBtn.textContent = `▶ ${label} · 今日 ${rounds} 轮`;
+  sessionStartBtn.classList.remove('is-active');
+}
+
+function updateEasySessionCopy() {
+  if (easySessionState.completed) return;
+
+  const count = easySessionState.listenCount;
+  easySessionTitle.textContent = '今天只完成这一句';
+  if (count === 0) {
+    easySessionNote.textContent = '先听一遍，不需要全部听懂。';
+  } else if (count === 1) {
+    easySessionNote.textContent = '已经听过一遍。看一眼原文，再开口跟读。';
+  } else {
+    easySessionNote.textContent = `已经听了 ${count} 遍。现在完成也完全够了。`;
+  }
+}
+
+function renderEasySessionTimer() {
+  if (!easySessionState.active) return;
+  const remaining = getEasySessionRemaining();
+  easySessionTimer.textContent = formatTime(remaining);
+  updateSessionStartButton();
+
+  if (remaining <= 0) {
+    completeEasySession();
+  }
+}
+
+function startEasySessionTimer() {
+  clearInterval(easySessionState.timerId);
+  easySessionState.timerId = window.setInterval(renderEasySessionTimer, 250);
+  renderEasySessionTimer();
+}
+
+function findEasyFocusIndex(fromIndex, direction = 1) {
+  if (!SEGMENTS.length) return -1;
+  const start = Number.isFinite(fromIndex) ? fromIndex : -1;
+
+  for (let step = 1; step <= SEGMENTS.length; step += 1) {
+    const index = (start + step * direction + SEGMENTS.length) % SEGMENTS.length;
+    const seg = SEGMENTS[index];
+    const duration = seg.end - seg.start;
+    if (duration >= 1.5 && duration <= 18 && seg.text.trim().length >= 8) return index;
+  }
+
+  return clamp(start + direction, 0, SEGMENTS.length - 1);
+}
+
+function setEasyFocus(index) {
+  if (!SEGMENTS.length) return;
+  const nextIndex = clamp(Number.isFinite(index) ? index : 0, 0, SEGMENTS.length - 1);
+  const seg = SEGMENTS[nextIndex];
+
+  audio.pause();
+  easySessionState.playingFocus = false;
+  easySessionState.focusIndex = nextIndex;
+  easySessionState.listenCount = 0;
+  clearLoop();
+  ensureSectionForSegment(nextIndex);
+
+  subtitlePanel.querySelectorAll('.seg').forEach((el) => {
+    el.classList.remove('easy-focus', 'easy-session-revealed');
+  });
+  const focusEl = subtitlePanel.children[nextIndex];
+  focusEl?.classList.add('easy-focus');
+
+  audio.currentTime = seg.start;
+  currentSegIndex = -1;
+  updateActiveSeg();
+  updateEasySessionCopy();
+}
+
+function revealEasyFocus() {
+  const index = easySessionState.focusIndex;
+  if (index < 0) return;
+  const focusEl = subtitlePanel.children[index];
+  focusEl?.classList.add('easy-session-revealed');
+  revealSegment(index);
+  easySessionNote.textContent = '原文已经显示。听一句，跟着说一句。';
+}
+
+async function playEasyFocus() {
+  const index = easySessionState.focusIndex;
+  const seg = SEGMENTS[index];
+  if (!easySessionState.active || !seg) return;
+
+  clearLoop();
+  audio.currentTime = seg.start;
+  easySessionState.playingFocus = true;
+  easySessionNote.textContent = '正在听这一句，听不全也没关系。';
+  try {
+    await audio.play();
+  } catch {
+    easySessionState.playingFocus = false;
+    easySessionNote.textContent = '点播放按钮开始这一句。';
+  }
+}
+
+function startEasySession(options = {}) {
+  if (!SEGMENTS.length) return;
+
+  easySessionState.active = true;
+  easySessionState.completed = false;
+  easySessionState.deadline = Date.now() + EASY_SESSION_SECONDS * 1000;
+  easySessionState.playingFocus = false;
+  easySessionEl.hidden = false;
+  easySessionEl.classList.remove('is-complete');
+  easySessionActions.hidden = false;
+  document.body.classList.add('easy-session-mode');
+
+  const currentIndex = currentSegIndex >= 0
+    ? currentSegIndex
+    : SEGMENTS.findIndex((seg) => seg.end > (audio.currentTime || 0));
+  setEasyFocus(Number.isFinite(options.focusIndex) ? options.focusIndex : Math.max(0, currentIndex));
+  startEasySessionTimer();
+
+  if (options.play !== false) playEasyFocus();
+}
+
+function completeEasySession(options = {}) {
+  const shouldRecord = options.record !== false && !easySessionState.completed;
+  audio.pause();
+  clearInterval(easySessionState.timerId);
+  easySessionState.active = false;
+  easySessionState.playingFocus = false;
+  easySessionState.completed = true;
+  if (shouldRecord) addTodayRound();
+
+  document.body.classList.remove('easy-session-mode');
+  subtitlePanel.querySelectorAll('.seg').forEach((el) => {
+    el.classList.remove('easy-focus', 'easy-session-revealed');
+  });
+  easySessionEl.hidden = false;
+  easySessionEl.classList.add('is-complete');
+  easySessionTitle.textContent = '完成 1 轮，今天已经够了';
+  easySessionNote.textContent = '不用补时长。下次从任意一句重新开始。';
+  easySessionTimer.textContent = '完成';
+  easySessionActions.hidden = true;
+  applySectionFilter();
+  updateSessionStartButton();
+}
+
+function moveEasyFocus() {
+  const nextIndex = findEasyFocusIndex(easySessionState.focusIndex, 1);
+  setEasyFocus(nextIndex);
+}
+
+function setPlaybackSpeed(speed) {
+  document.querySelectorAll('.speed-btn').forEach((button) => {
+    button.classList.toggle('active', Number(button.dataset.speed) === speed);
+  });
+  audio.playbackRate = speed;
+}
+
+function openRescueDialog() {
+  audio.pause();
+  rescueDialog.hidden = false;
+  rescueCloseBtn.focus();
+}
+
+function closeRescueDialog() {
+  rescueDialog.hidden = true;
+  boredBtn.focus();
+}
+
+function checkEasySentenceEnd() {
+  if (!easySessionState.active || !easySessionState.playingFocus) return;
+  const seg = SEGMENTS[easySessionState.focusIndex];
+  if (!seg || audio.currentTime < seg.end) return;
+
+  easySessionState.playingFocus = false;
+  easySessionState.listenCount += 1;
+  audio.pause();
+  audio.currentTime = Math.max(seg.start, seg.end - 0.05);
+  updateEasySessionCopy();
 }
 
 function getLessonEndTime() {
@@ -1414,6 +2031,9 @@ function switchTrack(index) {
   applyDictationMode();
   buildVocabList();
   updateSentenceCount();
+  if (easySessionState.active) {
+    setEasyFocus(findEasyFocusIndex(-1));
+  }
 }
 
 function normalizeAudioUrl(url) {
@@ -1767,6 +2387,7 @@ function buildSubtitles() {
     div.innerHTML = `
       <div class="seg-time">${formatTime(seg.start)}</div>
       <div class="seg-text">${highlightVocab(seg.text)}</div>
+      <div class="easy-listen-prompt">先听一遍，不需要全部听懂。</div>
       <div class="dictation-prompt">听写模式：先听这一句，再点「显」核对原文。</div>
       <div class="seg-translation" hidden></div>
       <div class="seg-actions">
@@ -1794,6 +2415,10 @@ function buildSubtitles() {
         return;
       }
       if (e.target.closest('.word-clickable')) return;
+      if (easySessionState.active && easySessionState.focusIndex === i) {
+        playEasyFocus();
+        return;
+      }
       audio.currentTime = seg.start;
       if (audio.paused) audio.play();
     });
@@ -2265,6 +2890,7 @@ function checkLoop() {
 // === Audio events ===
 audio.addEventListener('timeupdate', () => {
   checkLoop();
+  checkEasySentenceEnd();
   updateActiveSeg();
 
   const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
@@ -2288,7 +2914,59 @@ audio.addEventListener('pause', () => { playBtn.textContent = '▶'; });
 
 // === Controls ===
 playBtn.addEventListener('click', () => {
+  if (easySessionState.active) {
+    if (audio.paused) playEasyFocus(); else audio.pause();
+    return;
+  }
   if (audio.paused) audio.play(); else audio.pause();
+});
+
+sessionStartBtn.addEventListener('click', () => {
+  if (easySessionState.active) {
+    if (audio.paused) playEasyFocus(); else audio.pause();
+    return;
+  }
+  startEasySession();
+});
+
+easyListenBtn.addEventListener('click', playEasyFocus);
+easyRevealBtn.addEventListener('click', revealEasyFocus);
+easyTranslateBtn.addEventListener('click', () => {
+  revealEasyFocus();
+  translateSegment(easySessionState.focusIndex);
+});
+easyNextBtn.addEventListener('click', () => {
+  moveEasyFocus();
+  playEasyFocus();
+});
+easyCompleteBtn.addEventListener('click', () => completeEasySession());
+
+boredBtn.addEventListener('click', openRescueDialog);
+rescueCloseBtn.addEventListener('click', closeRescueDialog);
+rescueDialog.addEventListener('click', (event) => {
+  if (event.target === rescueDialog) closeRescueDialog();
+});
+document.querySelectorAll('[data-rescue]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const action = button.dataset.rescue;
+    if (action === 'finish') {
+      closeRescueDialog();
+      completeEasySession();
+      return;
+    }
+
+    if (!easySessionState.active) startEasySession({ play: false });
+    if (action === 'easier') {
+      setPlaybackSpeed(0.75);
+      revealEasyFocus();
+      translateSegment(easySessionState.focusIndex);
+    } else if (action === 'next') {
+      moveEasyFocus();
+    }
+
+    closeRescueDialog();
+    playEasyFocus();
+  });
 });
 
 prevSection.addEventListener('click', () => {
@@ -2342,11 +3020,21 @@ document.getElementById('fwdBtn').addEventListener('click', () => {
 });
 
 document.getElementById('prevBtn').addEventListener('click', () => {
+  if (easySessionState.active) {
+    setEasyFocus(findEasyFocusIndex(easySessionState.focusIndex, -1));
+    playEasyFocus();
+    return;
+  }
   if (currentSegIndex > 0) {
     audio.currentTime = SEGMENTS[currentSegIndex - 1].start;
   }
 });
 document.getElementById('nextBtn').addEventListener('click', () => {
+  if (easySessionState.active) {
+    moveEasyFocus();
+    playEasyFocus();
+    return;
+  }
   if (currentSegIndex < SEGMENTS.length - 1) {
     audio.currentTime = SEGMENTS[currentSegIndex + 1].start;
   }
@@ -2355,9 +3043,7 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // Speed buttons
 document.querySelectorAll('.speed-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    audio.playbackRate = parseFloat(btn.dataset.speed);
+    setPlaybackSpeed(parseFloat(btn.dataset.speed));
   });
 });
 
@@ -2397,10 +3083,20 @@ document.getElementById('vocabToggle').addEventListener('click', () => {
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'Escape' && !rescueDialog.hidden) {
+    closeRescueDialog();
+    return;
+  }
   switch (e.key) {
     case ' ':
       e.preventDefault();
-      if (audio.paused) audio.play(); else audio.pause();
+      if (easySessionState.active) {
+        if (audio.paused) playEasyFocus(); else audio.pause();
+      } else if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
       break;
     case 'ArrowLeft':
       audio.currentTime = Math.max(0, audio.currentTime - 5);
@@ -2443,6 +3139,7 @@ buildSubtitles();
 applyDictationMode();
 buildVocabList();
 updateSentenceCount();
+updateSessionStartButton();
 
 // Fallback hide loading
 setTimeout(() => loading.classList.add('hidden'), 3000);
